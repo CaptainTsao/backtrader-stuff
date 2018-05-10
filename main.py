@@ -29,8 +29,8 @@ class TestStrategy(bt.Strategy):
         self.buycomm = None
 
         # Add a MovingAverageSimple indicator
-        self.sma_fast = bt.indicators.SimpleMovingAverage( self.datas[0], period=200)
-        self.sma_slow = bt.indicators.SimpleMovingAverage( self.datas[0], period=1000)
+        self.sma_fast = bt.indicators.SimpleMovingAverage( self.datas[0], period=20)
+        self.sma_slow = bt.indicators.SimpleMovingAverage( self.datas[0], period=100)
 
     def notify_order(self, order):
         if order.status in [order.Submitted, order.Accepted]:
@@ -106,7 +106,7 @@ class AcctValue(bt.Observer):
 
 cerebro = bt.Cerebro(stdstats=False)    # I don't want the default plot objects
 
-cerebro.broker.set_cash(1000)  # Set our starting cash to $1,000,000
+cerebro.broker.set_cash(10000)  # Set our starting cash to $1,000,000
 cerebro.broker.setcommission(0.00)
 
 data = btfeed.GenericCSVData(
@@ -127,9 +127,10 @@ data = btfeed.GenericCSVData(
     close=5,
     volume=6,
     timeframe=bt.TimeFrame.Minutes,
+    compression=1
 )
 
-#data = cerebro.resampledata(data, timeframe=tframes[args.timeframe], compression=args.compression)
+data = cerebro.resampledata(data, timeframe=bt.TimeFrame.Minutes, compression=5)
 
 
 #print(data)
