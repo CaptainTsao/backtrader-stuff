@@ -1,5 +1,6 @@
 import backtrader as bt
 import backtrader.indicators as btind
+import backtrader.feeds as btfeed
 import datetime
 import pandas as pd
 from pandas import Series, DataFrame
@@ -7,84 +8,91 @@ import random
 from copy import deepcopy
 
 
-class SMAC(bt.Strategy):
-    """A simple moving average crossover strategy; crossing of a fast and slow moving average generates buy/sell
-       signals"""
-    params = {"fast": 20, "slow": 50,  # The windows for both fast and slow moving averages
-              "optim": False, "optim_fs": (20, 50)}  # Used for optimization; equivalent of fast and slow, but a tuple
+# Create a Stratey
+class TestStrategy(bt.Strategy):
+    params = (
+        ('maperiod', 15),
+    )
 
-    # The first number in the tuple is the fast MA's window, the
-    # second the slow MA's window
+    def log(self, txt, dt=None):
+        ''' Logging function fot this strategy'''
+        dt = dt or self.datas[0].datetime.date(0)
+        print('%s, %s' % (dt.isoformat(), txt))
 
     def __init__(self):
-        """Initialize the strategy"""
+        # Keep a reference to the "close" line in the data[0] dataseries
+        self.dataclose = self.datas[0].close
 
-        self.fastma = dict()
-        self.slowma = dict()
-        self.regime = dict()
+        # To keep track of pending orders and buy price/commission
+        self.order = None
+        self.buyprice = None
+        self.buycomm = None
 
-        self._addobserver(True,
-                          bt.observers.BuySell)  # CAUTION: Abuse of the method, I will change this in future code (see: https://community.backtrader.com/topic/473/plotting-just-the-account-s-value/4)
+        # Add a MovingAverageSimple indicator
+        self.sma_fast = bt.indicators.SimpleMovingAverage( self.datas[0], period=200)
+        self.sma_slow = bt.indicators.SimpleMovingAverage( self.datas[0], period=1000)
 
-        if self.params.optim:  # Use a tuple during optimization
-            self.params.fast, self.params.slow = self.params.optim_fs  # fast and slow replaced by tuple's contents
+    def notify_order(self, order):
+        if order.status in [order.Submitted, order.Accepted]:
+            # Buy/Sell order submitted/accepted to/by broker - Nothing to do
+            return
 
-        if self.params.fast > self.params.slow:
-            raise ValueError(
-                "A SMAC strategy cannot have the fast moving average's window be " + \
-                "greater than the slow moving average window.")
+        # Check if an order has been completed
+        # Attention: broker could reject order if not enough cash
+        if order.status in [order.Completed]:
+            if order.isbuy():
+                self.buyprice = order.executed.price
+                self.buycomm = order.executed.comm
 
-        for d in self.getdatanames():
-            # The moving averages
-            self.fastma[d] = btind.SimpleMovingAverage(self.getdatabyname(d),  # The symbol for the moving average
-                                                       period=self.params.fast,  # Fast moving average
-                                                       plotname="FastMA: " + d)
-            self.slowma[d] = btind.SimpleMovingAverage(self.getdatabyname(d),  # The symbol for the moving average
-                                                       period=self.params.slow,  # Slow moving average
-                                                       plotname="SlowMA: " + d)
+            self.bar_executed = len(self)
 
-            # Get the regime
-            self.regime[d] = self.fastma[d] - self.slowma[d]  # Positive when bullish
+        elif order.status in [order.Canceled, order.Margin, order.Rejected]:
+            self.log('Order Canceled/Margin/Rejected')
+
+        self.order = None
+
+    def notify_trade(self, trade):
+        if not trade.isclosed:
+            return
+
+        self.log('OPERATION PROFIT, GROSS %.2f, NET %.2f' %
+                 (trade.pnl, trade.pnlcomm))
 
     def next(self):
-        """Define what will be done in a single step, including creating and closing trades"""
-        for d in self.getdatanames():  # Looping through all symbols
-            pos = self.getpositionbyname(d).size or 0
-            if pos == 0:  # Are we out of the market?
-                # Consider the possibility of entrance
-                # Notice the indexing; [0] always mens the present bar, and [-1] the bar immediately preceding
-                # Thus, the condition below translates to: "If today the regime is bullish (greater than
-                # 0) and yesterday the regime was not bullish"
-                if self.regime[d][0] > 0 and self.regime[d][-1] <= 0:  # A buy signal
-                    self.buy(data=self.getdatabyname(d))
+        # Simply log the closing price of the series from the reference
+        #self.log('Close, %.2f' % self.dataclose[0])
+        #print(self.position)
+        # Check if an order is pending ... if yes, we cannot send a 2nd one
+        if self.order:
+            return
 
-            else:  # We have an open position
-                if self.regime[d][0] <= 0 and self.regime[d][-1] > 0:  # A sell signal
-                    self.sell(data=self.getdatabyname(d))
+        # Not yet ... we MIGHT BUY if ...
+        if self.sma_fast[0] > self.sma_slow[0]:
+            if self.position.size <= 0:
+                self.close()
+                self.order = self.buy()
+
+        elif self.sma_fast[0] < self.sma_slow[0]:
+            if self.position.size >= 0:
+                self.close()
+                self.order = self.sell()
 
 
 class PropSizer(bt.Sizer):
     """A position sizer that will buy as many stocks as necessary for a certain proportion of the portfolio
        to be committed to the position, while allowing stocks to be bought in batches (say, 100)"""
-    params = {"prop": 0.1, "batch": 100}
+    params = {"prop": 0.8, "batch": 100}
 
     def _getsizing(self, comminfo, cash, data, isbuy):
         """Returns the proper sizing"""
 
-        if isbuy:  # Buying
-            target = self.broker.getvalue() * self.params.prop  # Ideal total value of the position
-            price = data.close[0]
-            shares_ideal = target / price  # How many shares are needed to get target
-            batches = int(shares_ideal / self.params.batch)  # How many batches is this trade?
-            shares = batches * self.params.batch  # The actual number of shares bought
+        target = self.broker.getvalue() * self.params.prop  # Ideal total value of the position
+        price = data.close[0]
+        shares = int(target / price)
 
-            if shares * price > cash:
-                return 0  # Not enough money for this trade
-            else:
-                return shares
+        return shares
 
-        else:  # Selling
-            return self.broker.getposition(data).size  # Clear the position
+
 
 
 class AcctValue(bt.Observer):
@@ -98,37 +106,41 @@ class AcctValue(bt.Observer):
 
 cerebro = bt.Cerebro(stdstats=False)    # I don't want the default plot objects
 
+cerebro.broker.set_cash(1000)  # Set our starting cash to $1,000,000
+cerebro.broker.setcommission(0.00)
 
-cerebro.broker.set_cash(1000000)  # Set our starting cash to $1,000,000
-cerebro.broker.setcommission(0.01)
+data = btfeed.GenericCSVData(
+    dataname="D:/XLK.csv",
+    dtformat='%m/%d/%Y',
+    tmformat='%H%M',
 
-start = datetime.datetime(2010, 1, 1)
-end = datetime.datetime(2016, 10, 31)
-is_first = True
-# Not the same set of symbols as in other blog posts
-symbols = ["AAPL", "GOOG", "MSFT", "AMZN", "YHOO", "SNY", "NTDOY", "IBM", "HPQ", "QCOM", "NVDA"]
-plot_symbols = ["AAPL", "GOOG", "NVDA"]
-#plot_symbols = []
-for s in symbols:
-    data = bt.feeds.YahooFinanceData(dataname=s, fromdate=start, todate=end)
-    if s in plot_symbols:
-        if is_first:
-            data_main_plot = data
-            is_first = False
-        else:
-            data.plotinfo.plotmaster = data_main_plot
-    else:
-        data.plotinfo.plot = False
-    cerebro.adddata(data)    # Give the data to cerebro
+    fromdate=datetime.datetime(2003, 1, 1),
+    todate=datetime.datetime(2018 , 12, 28),
+
+    nullvalue=0.0,
+
+    datetime=0,
+    time=1,
+    open=2,
+    high=3,
+    low=4,
+    close=5,
+    volume=6,
+    timeframe=bt.TimeFrame.Minutes,
+)
+
+#data = cerebro.resampledata(data, timeframe=tframes[args.timeframe], compression=args.compression)
+
+
+#print(data)
+cerebro.adddata(data)    # Give the data to cerebro
+
 
 cerebro.addobserver(AcctValue)
-cerebro.addstrategy(SMAC)
+cerebro.addstrategy(TestStrategy)
 cerebro.addsizer(PropSizer)
 
 cerebro.broker.getvalue()
-
 cerebro.run()
-
 cerebro.plot(iplot=True, volume=False)
-
 cerebro.broker.getvalue()
