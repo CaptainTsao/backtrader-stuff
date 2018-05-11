@@ -24,6 +24,6 @@ def resample_dataframe(df, period):
     return ret
 
 
-df = pd.read_csv("./XLK30min.csv",dtype={"Date":np.str,"Time":np.str},engine='c')
-resampled = resample_dataframe(df,2)
-resampled.to_csv("XLK60min.csv", index=False,)
+df = pd.read_csv("./RACE.txt",dtype={"Date":np.str,"Time":np.str},engine='c')
+resampled = resample_dataframe(df,5)
+resampled.to_csv("RACE5min.csv", index=False,)

@@ -29,8 +29,10 @@ class TestStrategy(bt.Strategy):
         self.buycomm = None
 
         # Add a MovingAverageSimple indicator
-        self.sma_fast = bt.indicators.ExponentialMovingAverage(self.datas[0], period=10)
-        self.sma_slow = bt.indicators.ExponentialMovingAverage(self.datas[0], period=30)
+        self.sma_fast = bt.indicators.TripleExponentialMovingAverage(self.datas[0], period=30)
+        self.sma_slow = bt.indicators.TripleExponentialMovingAverage(self.datas[0], period=33)
+
+
 
     def notify_order(self, order):
         if order.status in [order.Submitted, order.Accepted]:
@@ -66,16 +68,22 @@ class TestStrategy(bt.Strategy):
         if self.order:
             return
 
-        # Not yet ... we MIGHT BUY if ...
-        if self.sma_fast[0] > self.sma_slow[0]:
-            if self.position.size <= 0:
+        try:
+            if self.sma_fast[1] > self.sma_slow[1] and self.sma_fast[0] < self.sma_slow[0]:
                 self.close()
+                print("buying")
+                print("sma fast",self.sma_fast[0],"sma fast prev",self.sma_fast[1])
+                print("sma slow",self.sma_slow[0],"sma slow prev",self.sma_slow[1])
                 self.order = self.buy()
 
-        elif self.sma_fast[0] < self.sma_slow[0]:
-            if self.position.size >= 0:
+            elif self.sma_fast[1] < self.sma_slow[1] and self.sma_fast[0] > self.sma_slow[0]:
                 self.close()
-                #self.order = self.sell()
+                print("selling")
+                print("sma fast",self.sma_fast[0],"sma fast prev",self.sma_fast[1])
+                print("sma slow",self.sma_slow[0],"sma slow prev",self.sma_slow[1])
+                self.order = self.sell()
+        except:
+            self.close()
 
 
 class PropSizer(bt.Sizer):
@@ -106,16 +114,16 @@ class AcctValue(bt.Observer):
 
 cerebro = bt.Cerebro(stdstats=False)    # I don't want the default plot objects
 
-cerebro.broker.set_cash(10000)  # Set our starting cash to $1,000,000
-cerebro.broker.setcommission(0.00)
+cerebro.broker.set_cash(1000)  # Set our starting cash to $1,000,000
+cerebro.broker.setcommission(0.001)
 
 
-data = btfeed.GenericCSVData(dataname="XLK15min.csv",
+data = btfeed.GenericCSVData(dataname="RACE5min.csv",
     dtformat='%m/%d/%Y',
     tmformat='%H%M',
 
     fromdate=datetime.datetime(2003, 1, 1),
-    todate=datetime.datetime(2018 , 12, 28),
+    todate=datetime.datetime(2018 , 4, 28),
 
     nullvalue=0.0,
 
