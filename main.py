@@ -29,8 +29,8 @@ class TestStrategy(bt.Strategy):
         self.buycomm = None
 
         # Add a MovingAverageSimple indicator
-        self.sma_fast = bt.indicators.SimpleMovingAverage( self.datas[0], period=20)
-        self.sma_slow = bt.indicators.SimpleMovingAverage( self.datas[0], period=100)
+        self.sma_fast = bt.indicators.ExponentialMovingAverage(self.datas[0], period=10)
+        self.sma_slow = bt.indicators.ExponentialMovingAverage(self.datas[0], period=30)
 
     def notify_order(self, order):
         if order.status in [order.Submitted, order.Accepted]:
@@ -75,13 +75,13 @@ class TestStrategy(bt.Strategy):
         elif self.sma_fast[0] < self.sma_slow[0]:
             if self.position.size >= 0:
                 self.close()
-                self.order = self.sell()
+                #self.order = self.sell()
 
 
 class PropSizer(bt.Sizer):
     """A position sizer that will buy as many stocks as necessary for a certain proportion of the portfolio
        to be committed to the position, while allowing stocks to be bought in batches (say, 100)"""
-    params = {"prop": 0.8, "batch": 100}
+    params = {"prop": 0.95, "batch": 100}
 
     def _getsizing(self, comminfo, cash, data, isbuy):
         """Returns the proper sizing"""
@@ -109,8 +109,8 @@ cerebro = bt.Cerebro(stdstats=False)    # I don't want the default plot objects
 cerebro.broker.set_cash(10000)  # Set our starting cash to $1,000,000
 cerebro.broker.setcommission(0.00)
 
-data = btfeed.GenericCSVData(
-    dataname="D:/XLK.csv",
+
+data = btfeed.GenericCSVData(dataname="XLK15min.csv",
     dtformat='%m/%d/%Y',
     tmformat='%H%M',
 
@@ -126,12 +126,7 @@ data = btfeed.GenericCSVData(
     low=4,
     close=5,
     volume=6,
-    timeframe=bt.TimeFrame.Minutes,
-    compression=1
-)
-
-data = cerebro.resampledata(data, timeframe=bt.TimeFrame.Minutes, compression=5)
-
+    timeframe=bt.TimeFrame.Minutes,)
 
 #print(data)
 cerebro.adddata(data)    # Give the data to cerebro
