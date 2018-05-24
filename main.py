@@ -1,11 +1,6 @@
-import backtrader as bt
-import backtrader.indicators as btind
-import backtrader.feeds as btfeed
 import datetime
-import pandas as pd
-from pandas import Series, DataFrame
-import random
-from copy import deepcopy
+import backtrader as bt
+import backtrader.feeds as btfeed
 
 
 # Create a Stratey
@@ -19,6 +14,9 @@ class TestStrategy(bt.Strategy):
         dt = dt or self.datas[0].datetime.date(0)
         print('%s, %s' % (dt.isoformat(), txt))
 
+    def stop(self):
+        self.close()
+
     def __init__(self):
         # Keep a reference to the "close" line in the data[0] dataseries
         self.dataclose = self.datas[0].close
@@ -27,11 +25,13 @@ class TestStrategy(bt.Strategy):
         self.order = None
         self.buyprice = None
         self.buycomm = None
+        self.prev_target= 0
+        self.ma_pairs = []
 
-        # Add a MovingAverageSimple indicator
-        self.sma_fast = bt.indicators.TripleExponentialMovingAverage(self.datas[0], period=30)
-        self.sma_slow = bt.indicators.TripleExponentialMovingAverage(self.datas[0], period=33)
+        self.moving_averages = []
 
+        for length in range(10,101,10):
+            self.moving_averages.append(bt.ind.EMA(period=length))
 
 
     def notify_order(self, order):
@@ -61,45 +61,28 @@ class TestStrategy(bt.Strategy):
                  (trade.pnl, trade.pnlcomm))
 
     def next(self):
-        # Simply log the closing price of the series from the reference
-        #self.log('Close, %.2f' % self.dataclose[0])
-        #print(self.position)
-        # Check if an order is pending ... if yes, we cannot send a 2nd one
-        if self.order:
-            return
+        target = 0.0
+        index = 0
+        num_above = 0
+        max_num_above = sum(range(0,len(self.moving_averages)))
+        for ma in self.moving_averages:
+            for test_ma in self.moving_averages[index+1:]:
+                if ma[0] > test_ma[0]:
+                    num_above += 1
+            index += 1
 
-        try:
-            if self.sma_fast[1] > self.sma_slow[1] and self.sma_fast[0] < self.sma_slow[0]:
-                self.close()
-                print("buying")
-                print("sma fast",self.sma_fast[0],"sma fast prev",self.sma_fast[1])
-                print("sma slow",self.sma_slow[0],"sma slow prev",self.sma_slow[1])
-                self.order = self.buy()
+        #print("num above",num_above)
+        #print("max num above",max_num_above)
 
-            elif self.sma_fast[1] < self.sma_slow[1] and self.sma_fast[0] > self.sma_slow[0]:
-                self.close()
-                print("selling")
-                print("sma fast",self.sma_fast[0],"sma fast prev",self.sma_fast[1])
-                print("sma slow",self.sma_slow[0],"sma slow prev",self.sma_slow[1])
-                self.order = self.sell()
-        except:
-            self.close()
+        target = ((num_above/max_num_above) - .5) * 2.0
+        #print(target)
 
+        if target < 0:
+            target = 0
 
-class PropSizer(bt.Sizer):
-    """A position sizer that will buy as many stocks as necessary for a certain proportion of the portfolio
-       to be committed to the position, while allowing stocks to be bought in batches (say, 100)"""
-    params = {"prop": 0.95, "batch": 100}
-
-    def _getsizing(self, comminfo, cash, data, isbuy):
-        """Returns the proper sizing"""
-
-        target = self.broker.getvalue() * self.params.prop  # Ideal total value of the position
-        price = data.close[0]
-        shares = int(target / price)
-
-        return shares
-
+        if target != self.prev_target:
+            self.order_target_percent(target=target*.9)
+        self.prev_target = target
 
 
 
@@ -110,22 +93,19 @@ class AcctValue(bt.Observer):
     plotinfo = {"plot": True, "subplot": True}
 
     def next(self):
-        self.lines.value[0] = self._owner.broker.getvalue()  # Get today's account value (cash + stocks)
+        self.lines.value[0] = self._owner.broker.getvalue() # Get today's account value (cash + stocks)
 
-cerebro = bt.Cerebro(stdstats=False)    # I don't want the default plot objects
-
-cerebro.broker.set_cash(1000)  # Set our starting cash to $1,000,000
-cerebro.broker.setcommission(0.001)
+cerebro = bt.Cerebro(cheat_on_open=True)
 
 
-data = btfeed.GenericCSVData(dataname="RACE5min.csv",
+data = btfeed.GenericCSVData(dataname="AAPL.txt",
     dtformat='%m/%d/%Y',
-    tmformat='%H%M',
+    tmformat='%H:%M',
 
-    fromdate=datetime.datetime(2003, 1, 1),
-    todate=datetime.datetime(2018 , 4, 28),
+    fromdate=datetime.datetime(2000, 1, 1),
+    todate=datetime.datetime(2019, 1, 1),
 
-    nullvalue=0.0,
+  #  nullvalue=0.0,
 
     datetime=0,
     time=1,
@@ -134,17 +114,13 @@ data = btfeed.GenericCSVData(dataname="RACE5min.csv",
     low=4,
     close=5,
     volume=6,
-    timeframe=bt.TimeFrame.Minutes,)
+    openinterest=-6)
 
-#print(data)
-cerebro.adddata(data)    # Give the data to cerebro
-
-
+cerebro.broker.set_cash(1000000) # Set our starting cash to $1,000,000
 cerebro.addobserver(AcctValue)
+cerebro.adddata(data)
 cerebro.addstrategy(TestStrategy)
-cerebro.addsizer(PropSizer)
+cerebro.addobserver(bt.observers.DrawDown)
 
-cerebro.broker.getvalue()
 cerebro.run()
-cerebro.plot(iplot=True, volume=False)
-cerebro.broker.getvalue()
+cerebro.plot()
