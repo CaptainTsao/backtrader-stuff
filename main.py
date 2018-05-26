@@ -9,25 +9,26 @@ class EVWAP(bt.Indicator):
 
     def __init__(self):
         self.addminperiod(self.params.period)
+        self.time_ma = bt.ind.EMA(period=self.params.period)
 
     def next(self):
         volume_price_sum = 0
         volume_sum = sum(self.data.volume.get(size=self.params.period))
-        for v,p in zip(self.data.volume.get(size=self.params.period),self.data.close.get(size=self.params.period)):
+        for i,(v,p) in enumerate(zip(self.data.volume.get(size=self.params.period),self.data.close.get(size=self.params.period))):
             volume_price_sum += v * p
         average_price = volume_price_sum / volume_sum
         #print(average_price)
-        self.lines.evwap[0] = average_price
+        self.lines.evwap[0] = (average_price + self.time_ma[0])/2
         #print(volume_sum)
 
 class maCross(bt.Strategy):
 
     def __init__(self):
-        self.fast_ma = EVWAP(period=3)
-        self.slow_ma = EVWAP(period=10)
+        self.fast_ma = EVWAP(period=2)
+        self.slow_ma = EVWAP(period=8)
 
         # Cross of macd.macd and macd.signal
-        self.cross = bt.indicators.CrossOver(self.fast_ma.evwap, self.slow_ma.evwap)
+        self.cross = bt.indicators.CrossOver(self.fast_ma, self.slow_ma)
         self.order = None
 
     def stop(self):
@@ -53,30 +54,20 @@ class maCross(bt.Strategy):
             lot_size = int(lot_dollars / d.close[0])
             #lot_size = 2
             if not pos:  # no market / no orders
-                if self.cross[0] == 1:
+                if self.cross[-2] == 1 and self.fast_ma[0] > self.slow_ma:
                     print("buying",lot_size)
                     self.order = self.buy(data=d,size=lot_size)
-                elif self.cross[0] == -1:
+                elif self.cross[-2] == -1 and self.fast_ma[0] < self.slow_ma:
                     print("selling",lot_size)
                     self.order = self.sell(data=d,size=lot_size)
             else:
-                if self.cross[0] == 1:
-                    print("buying",lot_size)
+                if self.cross[-2] == 1 and self.fast_ma[0] > self.slow_ma:
                     self.close(data=d)
                     self.order = self.buy(data=d,size=lot_size)
-                elif self.cross[0] == -1:
-                    print("selling",lot_size)
+                elif self.cross[-2] == -1 and self.fast_ma[0] < self.slow_ma:
                     self.close(data=d)
                     self.order = self.sell(data=d, size=lot_size)
 
-    def notify_trade(self, trade):
-        dt = self.data.datetime.date()
-        if trade.isclosed:
-            print('{} {} Closed: PnL Gross {}, Net {}'.format(
-                dt,
-                trade.data._name,
-                round(trade.pnl, 2),
-                round(trade.pnlcomm, 2)))
 
     def notify_order(self, order):
         if order.status in [order.Submitted, order.Accepted]:
@@ -88,10 +79,10 @@ class maCross(bt.Strategy):
         if order.status in [order.Completed]:
             if order.isbuy():
                 pass
-                #self.log('BUY EXECUTED, %.2f' % order.executed.price)
+                self.log('BUY EXECUTED, %.2f' % order.executed.price)
             elif order.issell():
                 pass
-                #self.log('SELL EXECUTED, %.2f' % order.executed.price)
+                self.log('SELL EXECUTED, %.2f' % order.executed.price)
 
             self.bar_executed = len(self)
 
@@ -115,7 +106,7 @@ class AcctValue(bt.Observer):
         self.lines.value[0] = self._owner.broker.getvalue() # Get today's account value (cash + stocks)
 
 def add_data(cerebro):
-    for txt in ['NG.txt']:
+    for txt in ['GF.txt']:
         data = btfeed.GenericCSVData(dataname=txt,
                                      dtformat='%m/%d/%Y',
                                      tmformat='%H:%M',
