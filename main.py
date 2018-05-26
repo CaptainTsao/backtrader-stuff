@@ -2,37 +2,81 @@ import datetime
 import backtrader as bt
 import backtrader.feeds as btfeed
 
+class EVWAP(bt.Indicator):
 
-# Create a Stratey
-class TestStrategy(bt.Strategy):
-    params = (
-        ('maperiod', 15),
-    )
+    lines = ('evwap',)
+    params = (('period',10),)
+
+    def __init__(self):
+        self.addminperiod(self.params.period)
+
+    def next(self):
+        volume_price_sum = 0
+        volume_sum = sum(self.data.volume.get(size=self.params.period))
+        for v,p in zip(self.data.volume.get(size=self.params.period),self.data.close.get(size=self.params.period)):
+            volume_price_sum += v * p
+        average_price = volume_price_sum / volume_sum
+        #print(average_price)
+        self.lines.evwap[0] = average_price
+        #print(volume_sum)
+
+class maCross(bt.Strategy):
+
+    def __init__(self):
+        self.fast_ma = EVWAP(period=3)
+        self.slow_ma = EVWAP(period=10)
+
+        # Cross of macd.macd and macd.signal
+        self.cross = bt.indicators.CrossOver(self.fast_ma.evwap, self.slow_ma.evwap)
+        self.order = None
+
+    def stop(self):
+        for d in self.datas:
+            self.close(data=d)
+
 
     def log(self, txt, dt=None):
         ''' Logging function fot this strategy'''
         dt = dt or self.datas[0].datetime.date(0)
         print('%s, %s' % (dt.isoformat(), txt))
 
-    def stop(self):
-        self.close()
+    def next(self):
+        if self.order:
+            return
 
-    def __init__(self):
-        # Keep a reference to the "close" line in the data[0] dataseries
-        self.dataclose = self.datas[0].close
+        lot_dollars = self.broker.getvalue() / len(self.datas)*.9
 
-        # To keep track of pending orders and buy price/commission
-        self.order = None
-        self.buyprice = None
-        self.buycomm = None
-        self.prev_target= 0
-        self.ma_pairs = []
+        for i,d in enumerate(self.datas):
+            #print(d.close[0])
+            dt, dn = self.datetime.date(), d._name
+            pos = self.getposition(d).size
+            lot_size = int(lot_dollars / d.close[0])
+            #lot_size = 2
+            if not pos:  # no market / no orders
+                if self.cross[0] == 1:
+                    print("buying",lot_size)
+                    self.order = self.buy(data=d,size=lot_size)
+                elif self.cross[0] == -1:
+                    print("selling",lot_size)
+                    self.order = self.sell(data=d,size=lot_size)
+            else:
+                if self.cross[0] == 1:
+                    print("buying",lot_size)
+                    self.close(data=d)
+                    self.order = self.buy(data=d,size=lot_size)
+                elif self.cross[0] == -1:
+                    print("selling",lot_size)
+                    self.close(data=d)
+                    self.order = self.sell(data=d, size=lot_size)
 
-        self.moving_averages = []
-
-        for length in range(10,101,10):
-            self.moving_averages.append(bt.ind.EMA(period=length))
-
+    def notify_trade(self, trade):
+        dt = self.data.datetime.date()
+        if trade.isclosed:
+            print('{} {} Closed: PnL Gross {}, Net {}'.format(
+                dt,
+                trade.data._name,
+                round(trade.pnl, 2),
+                round(trade.pnlcomm, 2)))
 
     def notify_order(self, order):
         if order.status in [order.Submitted, order.Accepted]:
@@ -43,48 +87,23 @@ class TestStrategy(bt.Strategy):
         # Attention: broker could reject order if not enough cash
         if order.status in [order.Completed]:
             if order.isbuy():
-                self.buyprice = order.executed.price
-                self.buycomm = order.executed.comm
+                pass
+                #self.log('BUY EXECUTED, %.2f' % order.executed.price)
+            elif order.issell():
+                pass
+                #self.log('SELL EXECUTED, %.2f' % order.executed.price)
 
             self.bar_executed = len(self)
 
-        elif order.status in [order.Canceled, order.Margin, order.Rejected]:
-            self.log('Order Canceled/Margin/Rejected')
+        elif order.status in [order.Canceled]:
+            self.log('Order Canceled')
+        elif order.status in [order.Margin]:
+            self.log('Order Margin')
+        elif order.status in [order.Rejected]:
+            self.log('Order Rejected')
 
+        # Write down: no pending order
         self.order = None
-
-    def notify_trade(self, trade):
-        if not trade.isclosed:
-            return
-
-        self.log('OPERATION PROFIT, GROSS %.2f, NET %.2f' %
-                 (trade.pnl, trade.pnlcomm))
-
-    def next(self):
-        target = 0.0
-        index = 0
-        num_above = 0
-        max_num_above = sum(range(0,len(self.moving_averages)))
-        for ma in self.moving_averages:
-            for test_ma in self.moving_averages[index+1:]:
-                if ma[0] > test_ma[0]:
-                    num_above += 1
-            index += 1
-
-        #print("num above",num_above)
-        #print("max num above",max_num_above)
-
-        target = ((num_above/max_num_above) - .5) * 2.0
-        #print(target)
-
-        if target < 0:
-            target = 0
-
-        if target != self.prev_target:
-            self.order_target_percent(target=target*.9)
-        self.prev_target = target
-
-
 
 class AcctValue(bt.Observer):
     alias = ('Value',)
@@ -95,31 +114,33 @@ class AcctValue(bt.Observer):
     def next(self):
         self.lines.value[0] = self._owner.broker.getvalue() # Get today's account value (cash + stocks)
 
-cerebro = bt.Cerebro(cheat_on_open=True)
+def add_data(cerebro):
+    for txt in ['NG.txt']:
+        data = btfeed.GenericCSVData(dataname=txt,
+                                     dtformat='%m/%d/%Y',
+                                     tmformat='%H:%M',
 
+                                     fromdate=datetime.datetime(1990, 1, 1),
+                                     todate=datetime.datetime(2019, 6, 1),
 
-data = btfeed.GenericCSVData(dataname="AAPL.txt",
-    dtformat='%m/%d/%Y',
-    tmformat='%H:%M',
+                                     #  nullvalue=0.0,
 
-    fromdate=datetime.datetime(2000, 1, 1),
-    todate=datetime.datetime(2019, 1, 1),
+                                     datetime=0,
+                                     time=1,
+                                     open=2,
+                                     high=3,
+                                     low=4,
+                                     close=5,
+                                     volume=6,
+                                     openinterest=-6)
+        cerebro.adddata(data)
 
-  #  nullvalue=0.0,
-
-    datetime=0,
-    time=1,
-    open=2,
-    high=3,
-    low=4,
-    close=5,
-    volume=6,
-    openinterest=-6)
+cerebro = bt.Cerebro(stdstats=False)
 
 cerebro.broker.set_cash(1000000) # Set our starting cash to $1,000,000
 cerebro.addobserver(AcctValue)
-cerebro.adddata(data)
-cerebro.addstrategy(TestStrategy)
+add_data(cerebro)
+cerebro.addstrategy(maCross)
 cerebro.addobserver(bt.observers.DrawDown)
 
 cerebro.run()

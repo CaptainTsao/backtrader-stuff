@@ -2,19 +2,29 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="38a6b3b3-ad86-44d1-a5e2-ca1e040264a6" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/DELL.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EURJPY.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FV.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GBPAUD.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GBPJPY.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GC.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GF.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/HG.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MSY.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NG.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SI.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TU.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TY.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/USDCAD.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/USDJPY.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/VIGN.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/XLF.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/XLK.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/XLY.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/backtrader-stuff.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/backtrader-stuff.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GASX.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/GASX5min.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/QCOM.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/QCOM15min.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/QCOM5min.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/RACE.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/RACE5min.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/XLK.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/XLK15min.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/XLK30min.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/XLK5min.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/XLK60min.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CL.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CL.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -29,8 +39,8 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="17" column="20" selection-start-line="17" selection-start-column="20" selection-end-line="17" selection-end-column="20" />
+            <state relative-caret-position="1836">
+              <caret line="117" column="19" selection-start-line="117" selection-start-column="19" selection-end-line="117" selection-end-column="19" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -38,48 +48,46 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="IBM.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/IBM.txt">
+      <file leaf-file-name="TY.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/TY.txt">
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
-      <file leaf-file-name="CL.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CL.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="18" selection-start-line="8" selection-start-column="18" selection-end-line="8" selection-end-column="18" />
-            </state>
-          </provider>
+      <file leaf-file-name="MSY.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/MSY.txt">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
-      <file leaf-file-name="feed.py" pinned="false" current-in-tab="false">
-        <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/feed.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="11713">
-              <caret line="706" selection-start-line="706" selection-end-line="706" />
-            </state>
-          </provider>
+      <file leaf-file-name="VIGN.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/VIGN.txt">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
-      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
-        <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/indicators/__init__.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <folding>
-                <element signature="e#916#1024#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
+      <file leaf-file-name="DELL.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/DELL.txt">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
-      <file leaf-file-name="resample.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resample.py">
+      <file leaf-file-name="GF.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/GF.txt">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file leaf-file-name="HG.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/HG.txt">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file leaf-file-name="SI.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SI.txt">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file leaf-file-name="TU.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/TU.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="27" column="35" selection-start-line="27" selection-start-column="35" selection-end-line="27" selection-end-column="35" />
-              <folding>
-                <element signature="e#0#18#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="17">
+              <caret line="1" selection-start-line="1" selection-end-line="1" />
             </state>
           </provider>
         </entry>
@@ -105,15 +113,16 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/resample.py" />
+        <option value="$PROJECT_DIR$/TU.txt" />
         <option value="$PROJECT_DIR$/main.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1552" />
-    <option name="y" value="558" />
-    <option name="width" value="1400" />
-    <option name="height" value="1000" />
+    <option name="x" value="-10" />
+    <option name="y" value="-10" />
+    <option name="width" value="1940" />
+    <option name="height" value="1050" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -123,6 +132,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -130,23 +140,23 @@
               <item name="backtrader-stuff" type="b2602c69:ProjectViewProjectNode" />
               <item name="backtrader-stuff" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="backtrader-stuff" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://C:/Users/mcdof/Documents/GitHub/backtrader-stuff/TU.txt" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\mcdof\Documents\GitHub\backtrader-stuff" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\mcdof\Documents\GitHub\backtrader-stuff" />
       <recent name="C:\Users\forrest\Documents\GitHub\backtrader-stuff" />
     </key>
   </component>
@@ -224,19 +234,19 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-6" y="-6" width="1613" height="873" extended-state="6" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24953096" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15429688" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="7" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3285151" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32827586" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39947438" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3986207" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -249,137 +259,19 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>20</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="6" />
+    </breakpoint-manager>
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/indicators/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#916#1024#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resample.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="27" column="35" selection-start-line="27" selection-start-column="35" selection-end-line="27" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/futures_continuous.txt" />
-    <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/feed.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="12002">
-          <caret line="706" selection-start-line="706" selection-end-line="706" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/indicators/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#916#1024#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resample.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="27" column="35" selection-start-line="27" selection-start-column="35" selection-end-line="27" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="629">
-          <caret line="37" column="94" selection-start-line="37" selection-start-column="94" selection-end-line="37" selection-end-column="94" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/futures_continuous.txt" />
-    <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/feed.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="12002">
-          <caret line="706" selection-start-line="706" selection-end-line="706" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/indicators/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#916#1024#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resample.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="27" column="35" selection-start-line="27" selection-start-column="35" selection-end-line="27" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="37" column="93" selection-start-line="37" selection-start-column="93" selection-end-line="37" selection-end-column="93" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/futures_continuous.txt" />
-    <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/feed.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="12002">
-          <caret line="706" selection-start-line="706" selection-end-line="706" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/indicators/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#916#1024#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resample.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="27" column="35" selection-start-line="27" selection-start-column="35" selection-end-line="27" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2873">
@@ -391,29 +283,12 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/futures_continuous.txt" />
-    <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/feed.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="12002">
-          <caret line="706" selection-start-line="706" selection-end-line="706" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/indicators/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#916#1024#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/feed.py" />
+    <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/indicators/__init__.py" />
     <entry file="file://$PROJECT_DIR$/resample.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="425">
           <caret line="27" column="35" selection-start-line="27" selection-start-column="35" selection-end-line="27" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -427,29 +302,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/feed.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="12002">
-          <caret line="706" selection-start-line="706" selection-end-line="706" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/indicators/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#916#1024#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/feed.py" />
+    <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/indicators/__init__.py" />
     <entry file="file://$PROJECT_DIR$/resample.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="425">
           <caret line="27" column="35" selection-start-line="27" selection-start-column="35" selection-end-line="27" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -463,29 +321,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/feed.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="11713">
-          <caret line="706" selection-start-line="706" selection-end-line="706" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/indicators/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#916#1024#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/feed.py" />
+    <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/indicators/__init__.py" />
     <entry file="file://$PROJECT_DIR$/resample.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="425">
           <caret line="27" column="35" selection-start-line="27" selection-start-column="35" selection-end-line="27" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -499,22 +340,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/indicators/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#916#1024#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/indicators/__init__.py" />
     <entry file="file://$PROJECT_DIR$/resample.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="425">
           <caret line="27" column="35" selection-start-line="27" selection-start-column="35" selection-end-line="27" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -532,9 +362,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="459">
           <caret line="27" column="35" selection-start-line="27" selection-start-column="35" selection-end-line="27" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -552,9 +379,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
           <caret line="14" column="12" lean-forward="true" selection-start-line="14" selection-start-column="12" selection-end-line="14" selection-end-column="12" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -572,64 +396,15 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
           <caret line="14" column="12" lean-forward="true" selection-start-line="14" selection-start-column="12" selection-end-line="14" selection-end-column="12" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/feeds/pandafeed.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2129">
-          <caret line="149" column="65" selection-start-line="149" selection-start-column="65" selection-end-line="149" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/linebuffer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="162" selection-start-line="162" selection-end-line="162" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/lineseries.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="460" selection-start-line="460" selection-end-line="460" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/indicators/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#916#1024#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/indicators/sma.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="20" selection-start-line="20" selection-end-line="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/feed.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="11713">
-          <caret line="706" selection-start-line="706" selection-end-line="706" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/feeds/pandafeed.py" />
+    <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/linebuffer.py" />
+    <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/indicators/__init__.py" />
+    <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/indicators/sma.py" />
+    <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/feed.py" />
     <entry file="file://$PROJECT_DIR$/futures_continuous.txt" />
-    <entry file="file://$PROJECT_DIR$/CL.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="18" selection-start-line="8" selection-start-column="18" selection-end-line="8" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/IBM.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -637,23 +412,87 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="425">
           <caret line="27" column="35" selection-start-line="27" selection-start-column="35" selection-end-line="27" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/indicators/basicops.py">
+    <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/indicators/basicops.py" />
+    <entry file="file://$PROJECT_DIR$/AMZN.txt">
+      <provider selected="true" editor-type-id="LargeFileEditor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/XLK.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/XLY.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/XLF.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/USDJPY.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GC.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CL.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1356">
+        <state relative-caret-position="136">
+          <caret line="8" column="18" selection-start-line="8" selection-start-column="18" selection-end-line="8" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NG.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FV.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SI.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TU.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/strategy.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="137">
+          <caret line="939" selection-start-line="939" selection-end-line="939" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/HG.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GF.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DELL.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/VIGN.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MSY.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TY.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/lineseries.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="146">
           <caret line="363" selection-start-line="363" selection-end-line="363" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="20" selection-start-line="17" selection-start-column="20" selection-end-line="17" selection-end-column="20" />
+        <state relative-caret-position="1836">
+          <caret line="117" column="19" selection-start-line="117" selection-start-column="19" selection-end-line="117" selection-end-column="19" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
