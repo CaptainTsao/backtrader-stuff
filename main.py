@@ -21,15 +21,20 @@ class EVWAP(bt.Indicator):
         self.lines.evwap[0] = (average_price + self.time_ma[0])/2
         #print(volume_sum)
 
+
 class maCross(bt.Strategy):
 
     def __init__(self):
-        self.fast_ma = EVWAP(period=2)
-        self.slow_ma = EVWAP(period=8)
+        self.fast_ma = bt.ind.SMA(period=1)
+        self.slow_ma = bt.ind.SMA(period=30)
+
+        self.atr = bt.ind.ATR(period=20)
 
         # Cross of macd.macd and macd.signal
         self.cross = bt.indicators.CrossOver(self.fast_ma, self.slow_ma)
-        self.order = None
+        self.orders = dict()
+        for d in self.datas:
+            self.orders[d._dataname] = None
 
     def stop(self):
         for d in self.datas:
@@ -42,40 +47,51 @@ class maCross(bt.Strategy):
         print('%s, %s' % (dt.isoformat(), txt))
 
     def next(self):
-        if self.order:
-            return
+        #print(self.orders)
 
         lot_dollars = self.broker.getvalue() / len(self.datas)*.9
 
         for i,d in enumerate(self.datas):
-            #print(d.close[0])
-            dt, dn = self.datetime.date(), d._name
+            security_name = d._dataname
+
+            # we only allow one outstanding backet order per security. if this is not none, that means we have
+            # a pending buy / stop loss / profit, so we continue
+            if self.orders[security_name] is not None:
+                continue
+
             pos = self.getposition(d).size
             lot_size = int(lot_dollars / d.close[0])
-            #lot_size = 2
-            if not pos:  # no market / no orders
-                if self.cross[-2] == 1 and self.fast_ma[0] > self.slow_ma:
+
+            if not pos:
+                if self.cross[0] == 1:
                     print("buying",lot_size)
-                    self.order = self.buy(data=d,size=lot_size)
-                elif self.cross[-2] == -1 and self.fast_ma[0] < self.slow_ma:
-                    print("selling",lot_size)
-                    self.order = self.sell(data=d,size=lot_size)
+                    self.orders[security_name] = self.buy_bracket(limitprice=d.close[0] + self.atr[0],
+                                                                  stopprice=d.close[0] - self.atr[0],
+                                                                  exectype=bt.Order.Market,
+                                                                  size=lot_size)
+                #elif self.cross[0] == -1:
+                #    print("selling",lot_size)
             else:
-                if self.cross[-2] == 1 and self.fast_ma[0] > self.slow_ma:
+                print("should never get here")
+                if self.cross[0] == 1:
                     self.close(data=d)
-                    self.order = self.buy(data=d,size=lot_size)
-                elif self.cross[-2] == -1 and self.fast_ma[0] < self.slow_ma:
+                    self.orders[security_name] = self.buy_bracket(limitprice=d.close[0] + self.atr[0],
+                                                                  stopprice=d.close[0] - self.atr[0],
+                                                                  exectype=bt.Order.Market,
+                                                                  size=lot_size)
+                elif self.cross[0] == -1:
                     self.close(data=d)
-                    self.order = self.sell(data=d, size=lot_size)
 
 
     def notify_order(self, order):
+
         if order.status in [order.Submitted, order.Accepted]:
             # Buy/Sell order submitted/accepted to/by broker - Nothing to do
             return
 
         # Check if an order has been completed
         # Attention: broker could reject order if not enough cash
+        security_name = order.params.data._dataname
         if order.status in [order.Completed]:
             if order.isbuy():
                 pass
@@ -93,8 +109,14 @@ class maCross(bt.Strategy):
         elif order.status in [order.Rejected]:
             self.log('Order Rejected')
 
-        # Write down: no pending order
-        self.order = None
+        for k,v in self.orders.items():
+            if v is None:
+                continue
+            for o in v:
+                if not o.status in [o.Canceled,o.Margin,o.Rejected,o.Completed,]:
+                    break
+            else:
+                self.orders[k] = None
 
 class AcctValue(bt.Observer):
     alias = ('Value',)
@@ -106,7 +128,7 @@ class AcctValue(bt.Observer):
         self.lines.value[0] = self._owner.broker.getvalue() # Get today's account value (cash + stocks)
 
 def add_data(cerebro):
-    for txt in ['GF.txt']:
+    for txt in ['XLK.txt']:
         data = btfeed.GenericCSVData(dataname=txt,
                                      dtformat='%m/%d/%Y',
                                      tmformat='%H:%M',
