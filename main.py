@@ -25,10 +25,10 @@ class EVWAP(bt.Indicator):
 class maCross(bt.Strategy):
 
     def __init__(self):
-        self.fast_ma = bt.ind.SMA(period=1)
-        self.slow_ma = bt.ind.SMA(period=30)
+        self.fast_ma = bt.ind.SMA(period=2)
+        self.slow_ma = bt.ind.SMA(period=20)
 
-        self.atr = bt.ind.ATR(period=20)
+        self.atr = bt.ind.ATR(period=30)
 
         # Cross of macd.macd and macd.signal
         self.cross = bt.indicators.CrossOver(self.fast_ma, self.slow_ma)
@@ -61,26 +61,19 @@ class maCross(bt.Strategy):
 
             pos = self.getposition(d).size
             lot_size = int(lot_dollars / d.close[0])
+            assert(not pos)
+            if self.fast_ma[0] > self.slow_ma[0]:
+                print("buying",lot_size)
+                buy_order = self.buy(data=d,size=lot_size,transmit=False)
+                trail_stop = self.sell(data=d,size=lot_size,parent=buy_order,trailpercent=.01,exectype=bt.Order.StopTrail)
+                self.orders[security_name] = [buy_order,trail_stop]
+            elif self.fast_ma[0] < self.slow_ma[0]:
 
-            if not pos:
-                if self.cross[0] == 1:
-                    print("buying",lot_size)
-                    self.orders[security_name] = self.buy_bracket(limitprice=d.close[0] + self.atr[0],
-                                                                  stopprice=d.close[0] - self.atr[0],
-                                                                  exectype=bt.Order.Market,
-                                                                  size=lot_size)
-                #elif self.cross[0] == -1:
-                #    print("selling",lot_size)
-            else:
-                print("should never get here")
-                if self.cross[0] == 1:
-                    self.close(data=d)
-                    self.orders[security_name] = self.buy_bracket(limitprice=d.close[0] + self.atr[0],
-                                                                  stopprice=d.close[0] - self.atr[0],
-                                                                  exectype=bt.Order.Market,
-                                                                  size=lot_size)
-                elif self.cross[0] == -1:
-                    self.close(data=d)
+                print("selling",lot_size)
+                sell_order = self.sell(data=d,size=lot_size,transmit=False)
+                trail_stop = self.buy(data=d,size=lot_size,parent=sell_order,trailpercent=.01,exectype=bt.Order.StopTrail)
+                self.orders[security_name] = [sell_order,trail_stop]
+
 
 
     def notify_order(self, order):
@@ -95,10 +88,10 @@ class maCross(bt.Strategy):
         if order.status in [order.Completed]:
             if order.isbuy():
                 pass
-                self.log('BUY EXECUTED, %.2f' % order.executed.price)
+                self.log('BUY EXECUTED, %.6f' % order.executed.price)
             elif order.issell():
                 pass
-                self.log('SELL EXECUTED, %.2f' % order.executed.price)
+                self.log('SELL EXECUTED, %.6f' % order.executed.price)
 
             self.bar_executed = len(self)
 
@@ -128,7 +121,7 @@ class AcctValue(bt.Observer):
         self.lines.value[0] = self._owner.broker.getvalue() # Get today's account value (cash + stocks)
 
 def add_data(cerebro):
-    for txt in ['XLK.txt']:
+    for txt in ['USDCAD.txt']:
         data = btfeed.GenericCSVData(dataname=txt,
                                      dtformat='%m/%d/%Y',
                                      tmformat='%H:%M',
