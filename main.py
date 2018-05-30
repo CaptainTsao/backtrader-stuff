@@ -1,6 +1,7 @@
 import datetime
 import backtrader as bt
 import backtrader.feeds as btfeed
+import os
 
 class EVWAP(bt.Indicator):
 
@@ -16,6 +17,8 @@ class EVWAP(bt.Indicator):
         volume_sum = sum(self.data.volume.get(size=self.params.period))
         for i,(v,p) in enumerate(zip(self.data.volume.get(size=self.params.period),self.data.close.get(size=self.params.period))):
             volume_price_sum += v * p
+        if volume_sum == 0:
+            volume_sum = 1
         average_price = volume_price_sum / volume_sum
         #print(average_price)
         self.lines.evwap[0] = (average_price + self.time_ma[0])/2
@@ -26,15 +29,14 @@ class maCross(bt.Strategy):
 
     def __init__(self):
         self.fast_ma = bt.ind.SMA(period=2)
-        self.slow_ma = bt.ind.SMA(period=20)
+        self.slow_ma = bt.ind.SMA(period=12)
 
-        self.atr = bt.ind.ATR(period=30)
+        self.stddev = bt.ind.StdDev(period=20)
 
-        # Cross of macd.macd and macd.signal
         self.cross = bt.indicators.CrossOver(self.fast_ma, self.slow_ma)
         self.orders = dict()
         for d in self.datas:
-            self.orders[d._dataname] = None
+            self.orders[d.params.name] = None
 
     def stop(self):
         for d in self.datas:
@@ -52,7 +54,7 @@ class maCross(bt.Strategy):
         lot_dollars = self.broker.getvalue() / len(self.datas)*.9
 
         for i,d in enumerate(self.datas):
-            security_name = d._dataname
+            security_name = d.params.name
 
             # we only allow one outstanding backet order per security. if this is not none, that means we have
             # a pending buy / stop loss / profit, so we continue
@@ -61,18 +63,22 @@ class maCross(bt.Strategy):
 
             pos = self.getposition(d).size
             lot_size = int(lot_dollars / d.close[0])
+            lot_size = 10
             assert(not pos)
-            if self.fast_ma[0] > self.slow_ma[0]:
+            if self.cross[0] == 1:
                 print("buying",lot_size)
                 buy_order = self.buy(data=d,size=lot_size,transmit=False)
-                trail_stop = self.sell(data=d,size=lot_size,parent=buy_order,trailpercent=.01,exectype=bt.Order.StopTrail)
+                trail_stop = self.sell(data=d,size=lot_size,parent=buy_order,trailpercent=.015,exectype=bt.Order.StopTrail)
                 self.orders[security_name] = [buy_order,trail_stop]
-            elif self.fast_ma[0] < self.slow_ma[0]:
 
+                #self.orders[security_name] = self.buy_bracket(data=d,size=lot_size,limitprice=d.close[0]*1.02,stopprice=d.close[0]*.98,exectype=bt.Order.Market)
+            elif self.cross[0] == -1:
                 print("selling",lot_size)
                 sell_order = self.sell(data=d,size=lot_size,transmit=False)
-                trail_stop = self.buy(data=d,size=lot_size,parent=sell_order,trailpercent=.01,exectype=bt.Order.StopTrail)
+                trail_stop = self.buy(data=d,size=lot_size,parent=sell_order,trailpercent=.015,exectype=bt.Order.StopTrail)
                 self.orders[security_name] = [sell_order,trail_stop]
+
+                #self.orders[security_name] = self.buy_bracket(data=d,size=lot_size,limitprice=d.close[0]*.98,stopprice=d.close[0]*1.02,exectype=bt.Order.Market)
 
 
 
@@ -84,7 +90,7 @@ class maCross(bt.Strategy):
 
         # Check if an order has been completed
         # Attention: broker could reject order if not enough cash
-        security_name = order.params.data._dataname
+        security_name = order.params.data.params.name
         if order.status in [order.Completed]:
             if order.isbuy():
                 pass
@@ -125,6 +131,7 @@ def add_data(cerebro):
         data = btfeed.GenericCSVData(dataname=txt,
                                      dtformat='%m/%d/%Y',
                                      tmformat='%H:%M',
+                                     name = os.path.splitext(txt)[0],
 
                                      fromdate=datetime.datetime(1990, 1, 1),
                                      todate=datetime.datetime(2019, 6, 1),
@@ -142,6 +149,8 @@ def add_data(cerebro):
         cerebro.adddata(data)
 
 cerebro = bt.Cerebro(stdstats=False)
+
+cerebro.broker.setcommission(commission=0.0, margin=3000.0, mult=100.0)
 
 cerebro.broker.set_cash(1000000) # Set our starting cash to $1,000,000
 cerebro.addobserver(AcctValue)
