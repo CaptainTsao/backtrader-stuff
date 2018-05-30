@@ -2,6 +2,7 @@ import datetime
 import backtrader as bt
 import backtrader.feeds as btfeed
 import os
+from commissions import ALL_COMMISSIONS
 
 class EVWAP(bt.Indicator):
 
@@ -28,8 +29,8 @@ class EVWAP(bt.Indicator):
 class maCross(bt.Strategy):
 
     def __init__(self):
-        self.fast_ma = bt.ind.SMA(period=2)
-        self.slow_ma = bt.ind.SMA(period=12)
+        self.fast_ma = EVWAP(period=2)
+        self.slow_ma = EVWAP(period=20)
 
         self.stddev = bt.ind.StdDev(period=20)
 
@@ -63,22 +64,22 @@ class maCross(bt.Strategy):
 
             pos = self.getposition(d).size
             lot_size = int(lot_dollars / d.close[0])
-            lot_size = 10
+            lot_size = 100
             assert(not pos)
             if self.cross[0] == 1:
                 print("buying",lot_size)
-                buy_order = self.buy(data=d,size=lot_size,transmit=False)
-                trail_stop = self.sell(data=d,size=lot_size,parent=buy_order,trailpercent=.015,exectype=bt.Order.StopTrail)
+                buy_order = self.buy(data=d,transmit=False)
+                trail_stop = self.sell(data=d,parent=buy_order,trailpercent=.005,exectype=bt.Order.StopTrail)
                 self.orders[security_name] = [buy_order,trail_stop]
 
-                #self.orders[security_name] = self.buy_bracket(data=d,size=lot_size,limitprice=d.close[0]*1.02,stopprice=d.close[0]*.98,exectype=bt.Order.Market)
+                #self.orders[security_name] = self.buy_bracket(data=d,size=lot_size,limitprice=d.close[0]*1.005,stopprice=d.close[0]*.995,exectype=bt.Order.Market)
             elif self.cross[0] == -1:
                 print("selling",lot_size)
-                sell_order = self.sell(data=d,size=lot_size,transmit=False)
-                trail_stop = self.buy(data=d,size=lot_size,parent=sell_order,trailpercent=.015,exectype=bt.Order.StopTrail)
+                sell_order = self.sell(data=d,transmit=False)
+                trail_stop = self.buy(data=d,parent=sell_order,trailpercent=.005,exectype=bt.Order.StopTrail)
                 self.orders[security_name] = [sell_order,trail_stop]
 
-                #self.orders[security_name] = self.buy_bracket(data=d,size=lot_size,limitprice=d.close[0]*.98,stopprice=d.close[0]*1.02,exectype=bt.Order.Market)
+                #self.orders[security_name] = self.buy_bracket(data=d,size=lot_size,limitprice=d.close[0]*.995,stopprice=d.close[0]*1.005,exectype=bt.Order.Market)
 
 
 
@@ -117,6 +118,15 @@ class maCross(bt.Strategy):
             else:
                 self.orders[k] = None
 
+
+class mySizer(bt.Sizer):
+
+    def __init__(self):
+        pass
+
+    def _getsizing(self, comminfo, cash, data, isbuy):
+        return 1
+
 class AcctValue(bt.Observer):
     alias = ('Value',)
     lines = ('value',)
@@ -127,11 +137,11 @@ class AcctValue(bt.Observer):
         self.lines.value[0] = self._owner.broker.getvalue() # Get today's account value (cash + stocks)
 
 def add_data(cerebro):
-    for txt in ['USDCAD.txt']:
+    for txt in ['C:/Users/mcdof/Documents/kibot_data/cont_futures/15min/SI.txt']:
         data = btfeed.GenericCSVData(dataname=txt,
                                      dtformat='%m/%d/%Y',
                                      tmformat='%H:%M',
-                                     name = os.path.splitext(txt)[0],
+                                     name = os.path.splitext(os.path.basename(txt))[0],
 
                                      fromdate=datetime.datetime(1990, 1, 1),
                                      todate=datetime.datetime(2019, 6, 1),
@@ -150,13 +160,15 @@ def add_data(cerebro):
 
 cerebro = bt.Cerebro(stdstats=False)
 
-cerebro.broker.setcommission(commission=0.0, margin=3000.0, mult=100.0)
+for com in ALL_COMMISSIONS:
+    cerebro.broker.setcommission(**com)
 
 cerebro.broker.set_cash(1000000) # Set our starting cash to $1,000,000
 cerebro.addobserver(AcctValue)
 add_data(cerebro)
 cerebro.addstrategy(maCross)
 cerebro.addobserver(bt.observers.DrawDown)
+cerebro.addsizer(mySizer)
 
 cerebro.run()
 cerebro.plot()

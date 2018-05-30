@@ -1,5 +1,5 @@
 
-all_commissions = {
+ALL_COMMISSIONS = [
     #metals
     {'commission': 0.0, 'margin': 3000.0, 'mult': 100.0, 'name': 'GC'},
     {'commission': 0.0, 'margin': 4000.0, 'mult': 5000.0, 'name': 'SI'},
@@ -67,4 +67,4 @@ all_commissions = {
 
 
     {'commission':0.0, 'margin':6200.0, 'mult':50.0, 'name':'ES'},
-}
+]
