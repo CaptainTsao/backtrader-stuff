@@ -22,17 +22,17 @@ class EVWAP(bt.Indicator):
             volume_sum = 1
         average_price = volume_price_sum / volume_sum
         #print(average_price)
-        self.lines.evwap[0] = (average_price + self.time_ma[0])/2
+        self.lines.evwap[0] = average_price
         #print(volume_sum)
 
 
 class maCross(bt.Strategy):
 
     def __init__(self):
-        self.fast_ma = EVWAP(period=2)
-        self.slow_ma = EVWAP(period=20)
+        self.fast_ma = bt.ind.EMA(period=128)
+        self.slow_ma = bt.ind.EMA(period=512)
 
-        self.stddev = bt.ind.StdDev(period=20)
+        self.atr = bt.ind.ATR(period=20)
 
         self.cross = bt.indicators.CrossOver(self.fast_ma, self.slow_ma)
         self.orders = dict()
@@ -46,13 +46,13 @@ class maCross(bt.Strategy):
 
     def log(self, txt, dt=None):
         ''' Logging function fot this strategy'''
-        dt = dt or self.datas[0].datetime.date(0)
-        print('%s, %s' % (dt.isoformat(), txt))
+        dt = dt or self.data.datetime.date()
+        t  = self.data.datetime.time()
+        print('%s %s, %s' % (dt.isoformat(), t, txt))
 
     def next(self):
-        #print(self.orders)
-
-        lot_dollars = self.broker.getvalue() / len(self.datas)*.9
+        if not (datetime.time(8, 30) < self.data.datetime.time() < datetime.time(16, 00)):
+            return
 
         for i,d in enumerate(self.datas):
             security_name = d.params.name
@@ -63,24 +63,25 @@ class maCross(bt.Strategy):
                 continue
 
             pos = self.getposition(d).size
-            lot_size = int(lot_dollars / d.close[0])
-            lot_size = 100
-            assert(not pos)
-            if self.cross[0] == 1:
-                print("buying",lot_size)
-                buy_order = self.buy(data=d,transmit=False)
-                trail_stop = self.sell(data=d,parent=buy_order,trailpercent=.005,exectype=bt.Order.StopTrail)
-                self.orders[security_name] = [buy_order,trail_stop]
+            #assert(not pos)
+            if self.fast_ma[0] > self.slow_ma[0] and self.fast_ma[0] > self.fast_ma[-1] and self.slow_ma[0] > self.slow_ma[-1]:
+                self.close(data=d)
+                self.buy(data=d)
 
-                #self.orders[security_name] = self.buy_bracket(data=d,size=lot_size,limitprice=d.close[0]*1.005,stopprice=d.close[0]*.995,exectype=bt.Order.Market)
-            elif self.cross[0] == -1:
-                print("selling",lot_size)
-                sell_order = self.sell(data=d,transmit=False)
-                trail_stop = self.buy(data=d,parent=sell_order,trailpercent=.005,exectype=bt.Order.StopTrail)
-                self.orders[security_name] = [sell_order,trail_stop]
+                #buy_order = self.buy(data=d,transmit=False)
+                #trail_stop = self.sell(data=d,parent=buy_order,trailpercent=.02,exectype=bt.Order.StopTrail)
+                #self.orders[security_name] = [buy_order,trail_stop]
 
-                #self.orders[security_name] = self.buy_bracket(data=d,size=lot_size,limitprice=d.close[0]*.995,stopprice=d.close[0]*1.005,exectype=bt.Order.Market)
+                #self.orders[security_name] = self.buy_bracket(data=d,limitprice=d.close[0]*1.01,stopprice=d.close[0]*.99,exectype=bt.Order.Market)
+            if self.fast_ma[0] < self.slow_ma[0] and self.fast_ma[0] < self.fast_ma[-1] and self.slow_ma[0] < self.slow_ma[-1]:
+                self.close(data=d)
+                self.sell(data=d)
 
+                #sell_order = self.sell(data=d,transmit=False)
+                #trail_stop = self.buy(data=d,parent=sell_order,trailpercent=.02,exectype=bt.Order.StopTrail)
+                #self.orders[security_name] = [sell_order,trail_stop]
+
+                #self.orders[security_name] = self.buy_bracket(data=d,limitprice=d.close[0]*.99,stopprice=d.close[0]*1.01,exectype=bt.Order.Market)
 
 
     def notify_order(self, order):
@@ -125,7 +126,12 @@ class mySizer(bt.Sizer):
         pass
 
     def _getsizing(self, comminfo, cash, data, isbuy):
-        return 1
+        margin = comminfo.margin
+        mult = comminfo.params.mult
+        atr = self.strategy.atr[0]
+        num_contracts = int(self.broker.getvalue() / margin / 10)
+        print("buying" if isbuy else "selling",num_contracts)
+        return num_contracts
 
 class AcctValue(bt.Observer):
     alias = ('Value',)
@@ -137,11 +143,12 @@ class AcctValue(bt.Observer):
         self.lines.value[0] = self._owner.broker.getvalue() # Get today's account value (cash + stocks)
 
 def add_data(cerebro):
-    for txt in ['C:/Users/mcdof/Documents/kibot_data/cont_futures/15min/SI.txt']:
+    for txt in ['C:/Users/mcdof/Documents/kibot_data/cont_futures/60min/AD.txt']:
         data = btfeed.GenericCSVData(dataname=txt,
                                      dtformat='%m/%d/%Y',
                                      tmformat='%H:%M',
                                      name = os.path.splitext(os.path.basename(txt))[0],
+                                     timeframe=bt.TimeFrame.Ticks,
 
                                      fromdate=datetime.datetime(1990, 1, 1),
                                      todate=datetime.datetime(2019, 6, 1),
