@@ -7,7 +7,7 @@ import evwap
 class TrendStrength(bt.Indicator):
 
     lines = ('strength',)
-    params = (('periods',[5,10,20,30,40,50]),)
+    params = (('periods',[6,12,24,48,96]),)
 
     plotinfo = dict(subplot=True)
     plotlines = dict(

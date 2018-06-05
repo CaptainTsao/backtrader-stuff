@@ -22,7 +22,7 @@ class maCross(bt.Strategy):
         margin = comminfo.margin
         mult = comminfo.params.mult
         # atr = self.strategy.atr[0]
-        max_contracts = int(self.broker.getvalue() / margin / len(self.datas) / 2)
+        max_contracts = int(self.broker.getvalue() / margin / len(self.datas) / 3)
         # max_contracts = int(self.broker.getcash() / margin / len(self.datas) / 20)
         cash = self.broker.getcash()
         max_contracts_by_cash = int(self.broker.getcash() / margin / len(self.datas) / 20)
@@ -102,7 +102,7 @@ class maCross(bt.Strategy):
             for d in self.datas:
                 pass
                 #print(d.params.name,self.getposition(d).size)
-        if not self.data.datetime.time().hour == 15:
+        if not (self.data.datetime.time().hour == 15):
             return
         #strengths = []
         #for d in self.datas:
