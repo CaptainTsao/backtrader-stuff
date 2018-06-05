@@ -32,13 +32,13 @@ ALL_COMMISSIONS = [
 # CD  CONTINUOUS CANADIAN DOLLAR CONTRACT
 {'commission': 0.0, 'margin': 1210.0, 'mult': 100000.0, 'name': 'CD'}, #AKA 6C
 # C   CONTINUOUS CORN CONTRACT
-{'commission': 0.0, 'margin': 792.0, 'mult': 5000.0, 'name': 'C'}, #AKA C
+{'commission': 0.0, 'margin': 792.0, 'mult': 50.0, 'name': 'C'}, #AKA C
 # SI  CONTINUOUS SILVER CONTRACT
 {'commission': 0.0, 'margin': 4000.0, 'mult': 5000.0, 'name': 'SI'},
 # HG  CONTINUOUS COPPER CONTRACT
 {'commission': 0.0, 'margin': 3000.0, 'mult': 25000.0, 'name': 'HG'},
 # S   CONTINUOUS SOYBEANS CONTRACT
-{'commission': 0.0, 'margin': 2035.0, 'mult': 5000.0, 'name': 'S'}, #AKA ZS
+{'commission': 0.0, 'margin': 2035.0, 'mult': 50.0, 'name': 'S'}, #AKA ZS
 # UB  CONTINUOUS ULTRA US TREASURY BOND CONTRACT
 {'commission': 0.0, 'margin': 3410.0, 'mult': 1000.0, 'name': 'UB'}, #AKA TN
 # LG  CONTINUOUS LONG GILT CONTRACT
@@ -46,7 +46,7 @@ ALL_COMMISSIONS = [
 # NN  CONTINUOUS NIKKEI 225 YEN INDEX CONTRACT
 {'commission': 0.0, 'margin': 5720.0, 'mult': 5.0, 'name': 'NN'}, # AKA NKD
 # W   CONTINUOUS WHEAT CONTRACT
-{'commission': 0.0, 'margin': 1485.0, 'mult': 5000.0, 'name': 'ZW'},
+{'commission': 0.0, 'margin': 1485.0, 'mult': 50.0, 'name': 'W'}, #AKA ZW
 # SF  CONTINUOUS SWISS FRANC CONTRACT
 {'commission': 0.0, 'margin': 3080.0, 'mult': 125000.0, 'name': 'SF'}, # AKA 6S
 # HO  CONTINUOUS NEW YORK HARBOR ULSD CONTRACT
@@ -63,6 +63,7 @@ ALL_COMMISSIONS = [
 # PX  CONTINUOUS MEXICAN PESO CONTRACT
 {'commission': 0.0, 'margin': 1265.0, 'mult': 500000.0, 'name': 'PX'},#AKA 6M
 # SM  CONTINUOUS SOYBEAN MEAL CONTRACT
+{'commission': 0.0, 'margin': 1815.0, 'mult': 100.0, 'name': 'SM'},#AKA ZM
 # NE  CONTINUOUS NEW ZEALAND DOLLAR CONTRACT
 {'commission': 0.0, 'margin': 1430.0, 'mult': 100000.0, 'name': 'NE'}, #AKA 6N
 # TN  CONTINUOUS ULTRA 10 YR US TREASURY NOTE CONTRACT
@@ -78,6 +79,7 @@ ALL_COMMISSIONS = [
 # XT  CONTINUOUS 10 YR AUSTRALIAN T BOND CONTRACT
 # CT  CONTINUOUS COTTON #2 CONTRACT
 # KW  CONTINUOUS HARD RED WINTER WHEAT CONTRACT
+{'commission': 0.0, 'margin': 1850.0, 'mult': 50.0, 'name': 'KW'}, #AKA KE
 # CC  CONTINUOUS COCOA CONTRACT
 {'commission': 0.0, 'margin': 2090.0, 'mult': 10.0, 'name': 'CC'},
 # HE  CONTINUOUS LEAN HOGS CONTRACT

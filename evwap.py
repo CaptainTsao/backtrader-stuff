@@ -8,6 +8,11 @@ class EVWAP(bt.Indicator):
     lines = ('evwap',)
     params = (('period',10),)
 
+    plotinfo = dict(subplot=False)
+    plotlines = dict(
+        evwap=dict(ls='--'),
+    )
+
     def __init__(self):
         self.addminperiod(self.params.period)
         self.time_ma = bt.ind.EMA(period=self.params.period)

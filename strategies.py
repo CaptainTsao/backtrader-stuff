@@ -2,15 +2,76 @@ import datetime
 import backtrader as bt
 import backtrader.feeds as btfeed
 import os
+import math
 
+import evwap
+import indicators
 
 class maCross(bt.Strategy):
 
-    def add_indicator(self,data,name,ind,**kwargs):
-        self.indicators[data.params.name][name] = ind(**kwargs)
+    def do_sizing_simple(self,security_name,data):
+        comminfo = self.broker.comminfo[security_name]
+        margin = comminfo.margin
+        mult = comminfo.params.mult
+        # atr = self.strategy.atr[0]
+        max_contracts = int(self.broker.getvalue() / margin / len(self.datas) / 2)
+        return max_contracts
 
-    def get_indicator(self,data,name,index):
-        return self.indicators[data.params.name][name][index]
+    def do_sizing(self, security_name, data):
+        comminfo = self.broker.comminfo[security_name]
+        margin = comminfo.margin
+        mult = comminfo.params.mult
+        # atr = self.strategy.atr[0]
+        max_contracts = int(self.broker.getvalue() / margin / len(self.datas) / 2)
+        # max_contracts = int(self.broker.getcash() / margin / len(self.datas) / 20)
+        cash = self.broker.getcash()
+        max_contracts_by_cash = int(self.broker.getcash() / margin / len(self.datas) / 20)
+        value = self.broker.getvalue()
+        pos = self.getposition(data).size
+        max_contracts = max(max_contracts, abs(pos))
+
+        prev_strength = self.get_indicator(data, 'strength')[-1]
+        if math.isnan(prev_strength):
+            prev_strength = 0
+        strength = self.get_indicator(data, 'strength')[0]
+
+        new_pos_size = int(strength * max_contracts)
+        prev_adjusted_size = int(prev_strength * max_contracts)
+
+        if abs(new_pos_size) > abs(pos):
+            pass
+            # we need to make sure there's enough cash to increase our position size
+
+        if pos == new_pos_size:
+            ret = 0
+        elif pos == 0:
+            ret = new_pos_size
+        elif new_pos_size == 0:
+            ret = pos * -1
+        elif pos >= 0 and new_pos_size >= 0 or pos <= 0 and new_pos_size <= 0:
+            ret = abs(pos) - abs(new_pos_size)
+            if new_pos_size < pos:
+                ret = abs(ret) * -1
+            else:
+                ret = abs(ret)
+        elif (pos >= 0 and new_pos_size <= 0) or (pos <= 0 and new_pos_size >= 0):
+            ret = abs(pos) + abs(new_pos_size)
+            if new_pos_size < pos:
+                ret = abs(ret) * -1
+            else:
+                ret = abs(ret)
+
+        #we are making our position bigger, so we need to make sure we have enough cash
+        #if abs(new_pos_size) > abs(pos):
+
+
+        return ret
+
+    def add_indicator(self,data,name,ind,*args,**kwargs):
+        self.indicators[data.params.name][name] = ind(data,*args,**kwargs)
+
+    def get_indicator(self,data,name):
+        return self.indicators[data.params.name][name]
 
 
     def __init__(self):
@@ -21,9 +82,7 @@ class maCross(bt.Strategy):
         for d in self.datas:
             self.orders[d.params.name] = None
             self.indicators[d.params.name] = dict()
-
-            self.add_indicator(d,'fast_ma',bt.ind.SMA,period=2)
-            self.add_indicator(d,'slow_ma',bt.ind.SMA,period=20)
+            self.add_indicator(d,'strength',indicators.TrendStrength)
 
     def stop(self):
         for d in self.datas:
@@ -37,41 +96,30 @@ class maCross(bt.Strategy):
         print('%s %s, %s' % (dt.isoformat(), t, txt))
 
     def next(self):
-        if not (datetime.time(8, 30) < self.data.datetime.time() < datetime.time(16, 00)):
+        #if not (datetime.time(8, 30) < self.data.datetime.time() < datetime.time(16, 00)):
+        #    return
+        if datetime.time(0,0) == self.data.datetime.time():
+            for d in self.datas:
+                pass
+                #print(d.params.name,self.getposition(d).size)
+        if not self.data.datetime.time().hour == 15:
             return
-
+        #strengths = []
+        #for d in self.datas:
+        #    strengths.append((self.get_indicator(d,'strength')[0],d))
+        #strengths.sort(key=lambda x: abs(x[0]))
         for i,d in enumerate(self.datas):
             security_name = d.params.name
 
-            # we only allow one outstanding backet order per security. if this is not none, that means we have
-            # a pending buy / stop loss / profit, so we continue
-            if self.orders[security_name] is not None:
-                continue
+            contracts = self.do_sizing(security_name,d)
 
-            pos = self.getposition(d).size
-            #assert(not pos)
-            if self.get_indicator(d,'fast_ma',0) > self.get_indicator(d,'slow_ma',0) and \
-                    self.get_indicator(d, 'fast_ma', 0) > self.get_indicator(d,'fast_ma',-1) and \
-                    self.get_indicator(d, 'slow_ma', 0) > self.get_indicator(d,'slow_ma',-1):
-                #self.close(data=d)
-                #self.buy(data=d)
-
-                buy_order = self.buy(data=d,transmit=False)
-                trail_stop = self.sell(data=d,parent=buy_order,trailpercent=.02,exectype=bt.Order.StopTrail)
-                self.orders[security_name] = [buy_order,trail_stop]
-
-                #self.orders[security_name] = self.buy_bracket(data=d,limitprice=d.close[0]*1.01,stopprice=d.close[0]*.99,exectype=bt.Order.Market)
-            if self.get_indicator(d,'fast_ma',0) <self.get_indicator(d,'slow_ma',0) and \
-                    self.get_indicator(d, 'fast_ma', 0) < self.get_indicator(d,'fast_ma',-1) and \
-                    self.get_indicator(d, 'slow_ma', 0) < self.get_indicator(d,'slow_ma',-1):
-                #self.close(data=d)
-                #self.sell(data=d)
-
-                sell_order = self.sell(data=d,transmit=False)
-                trail_stop = self.buy(data=d,parent=sell_order,trailpercent=.02,exectype=bt.Order.StopTrail)
-                self.orders[security_name] = [sell_order,trail_stop]
-
-                #self.orders[security_name] = self.buy_bracket(data=d,limitprice=d.close[0]*.99,stopprice=d.close[0]*1.01,exectype=bt.Order.Market)
+            #if self.get_indicator(d,'strength')[0] < .3:
+            #    if self.getposition(d).size != 0:
+            #        self.close(data=d)
+            if contracts < 0:
+                self.sell(data=d,size=abs(contracts))
+            else:
+                self.buy(data=d,size=abs(contracts))
 
 
     def notify_order(self, order):
@@ -102,9 +150,7 @@ class maCross(bt.Strategy):
 
         for k,v in self.orders.items():
             if v is None:
+                self.orders[k] = None
                 continue
-            for o in v:
-                if not o.status in [o.Canceled,o.Margin,o.Rejected,o.Completed,]:
-                    break
-            else:
+            if v.status in [v.Canceled, v.Margin, v.Rejected, v.Completed, ]:
                 self.orders[k] = None

@@ -22,9 +22,16 @@ def main():
     utils.add_data(cerebro)
     cerebro.addstrategy(strategies.maCross)
     cerebro.addobserver(bt.observers.DrawDown)
-    cerebro.addsizer(sizers.mySizer)
+    cerebro.addanalyzer(bt.analyzers.SharpeRatio)
+    cerebro.addanalyzer(bt.analyzers.SQN)
+    #cerebro.addanalyzer(bt.analyzers.AnnualReturn)
+    cerebro.addobserver(observers.AggregateAssets)
+    cerebro.addobserver(observers.AcctCash)
+    #cerebro.addsizer(sizers.mySizer)
 
-    cerebro.run()
+    ret = cerebro.run()
+    print(ret[0].analyzers.sharperatio.get_analysis())
+    print(ret[0].analyzers.sqn.get_analysis())
     cerebro.plot()
 
 if __name__ == '__main__':
