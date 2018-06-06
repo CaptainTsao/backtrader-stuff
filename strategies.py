@@ -21,26 +21,13 @@ class maCross(bt.Strategy):
         comminfo = self.broker.comminfo[security_name]
         margin = comminfo.margin
         mult = comminfo.params.mult
-        # atr = self.strategy.atr[0]
-        max_contracts = int(self.broker.getvalue() / margin / len(self.datas) / 3)
-        # max_contracts = int(self.broker.getcash() / margin / len(self.datas) / 20)
-        cash = self.broker.getcash()
-        max_contracts_by_cash = int(self.broker.getcash() / margin / len(self.datas) / 20)
-        value = self.broker.getvalue()
+
         pos = self.getposition(data).size
-        max_contracts = max(max_contracts, abs(pos))
 
-        prev_strength = self.get_indicator(data, 'strength')[-1]
-        if math.isnan(prev_strength):
-            prev_strength = 0
         strength = self.get_indicator(data, 'strength')[0]
-
+        max_contracts = int(self.broker.getvalue() / margin / len(self.datas) / 3 )
+        max_contracts = max(max_contracts, abs(pos))
         new_pos_size = int(strength * max_contracts)
-        prev_adjusted_size = int(prev_strength * max_contracts)
-
-        if abs(new_pos_size) > abs(pos):
-            pass
-            # we need to make sure there's enough cash to increase our position size
 
         if pos == new_pos_size:
             ret = 0
