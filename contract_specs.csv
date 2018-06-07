@@ -1,0 +1,141 @@
+Futures Contract Specifications
+	
+
+Contract specifications for all North American-traded futures and commodities. Conveniently collected and displayed for easy reference, sorted by sector and market. Note that this specification list is updated manually and might contain inaccuracies. If you notice a problem, please contact TradingCharts.
+
+Agricultural Futures Contract Specifications
+
+Contract Name 	Symbol 	Months 	Tick Size 	Quoted Units 	Trading Unit 	Min Fluc 	Init Margin 	Maint Margin
+Alberta Barley	AB	FHKNX	C$.10/ton = C$2.00	CDN $ per tonne	20 tonnes	$0.10/tonne	$182	$135
+Soybean Oil	BO	FHKNQUVZ	1/100 cent ($0.0001)/lb ($6/contract)	US $ per pound	60,000 lbs	1/100 cent	$1,485	$1,100
+South American Soybeans	BS	FHKNQUX	1/4 cent/bu ($12.50/contract)	US $ per barrel	5,000 bu	1/4c ($12.50)	$2,025	$1,500
+Corn	C	HKNUZ	1/4 c/bushel ($12.50/contract)	US $ per bushel	5,000 bushels	1/4 cents per bushel = $12.50	$2,025	$1,500
+Soybean Crush	CS	FHKNQUX	1/4 cent/bu ($12.50/contract)	US $ per bushel	5,000 bu	1/4C ($12.50)	$1,148	$850
+Wheat (Kansas)	KW	HKNUZ	1/4 cent/bu. = $12.50	US $ per bushel	5,000 bu.	1/4C ($12.50)	$2,500	$2,000
+Hard Red Spring Wheat	MW	HKNUZ	1/4 cent/bu. = $12.50	US $ per bushel	5,000 bu.	1/8 c per bushel	$3,250	$2,500
+Oats	O	HKNUZ	1/4 cent/bu ($12.50/contract Oat )	US $ per bushel	5,000 bu	1/4C ($12.50)	$1,148	$800
+Rough Rice	RR	FHKNUX	1/2 cent/cwt ($10/contract)	US $ per hundredweight	2,000 cwt	1/2 cent/cwt	$1,283	$950
+Canola	RS	FHKNUX	C$.10/ton = C$2.00	CDN $ per tonne	20 tonnes	$0.10/tonne	$1,073	$795
+Soybeans	S	FHKNQUX	1/4 cent/bu ($12.50/contract)	US $ per bushel	5,000 bu	1/4C ($12.50)	$3,375	$2,500
+Soybean Meal	SM	FHKNQUVZ	10 cents/ton ($10/contract)	US $ per short ton	100 tons (2,000 lbs/ton)	.10/tn ($10)	$2,363	$1,750
+Wheat	W	HKNUZ	1/4 cent/bu ($12.50/contract)	US $ per bushel	5,000 bu	1/4C ($12.50)	$3,375	$2,500
+Corn Mini	YC	HKNUZ	1/8 cent/bu ($1.25/contract)	US $ per bushel	1,000 bu	1/8c ($1.25)	$405	$300
+Soybeans Mini	YK	FHKNQUX	1/8 cent/bushel ($1.25 per contract)	US $ per bushel	1,000 bu	1/8 cent/bushel	$675	$500
+Mini Wheat	YW	HKNUZ	1/8 bu. = $1.25	US $ per bushel	1,000 bu.	1/4C ($12.50)	$675	$500
+
+Currencies Futures Contract Specifications
+
+Contract Name 	Symbol 	Months 	Tick Size 	Quoted Units 	Trading Unit 	Min Fluc 	Init Margin 	Maint Margin
+Australian Dollar	AD	HMUZHMUZ	$.0001 AD ($10.00/contract)	US $ per Australian Dollar	100,000 Australian Dollars	.0001 ($10)	$2,970	$2,200
+British Pound	BP	HMUZ	$0.0001 BP = $6.25	US $ per British Pound	62,500 British Pounds	.0001 ($6.25)	$2,430	$1,800
+Brazilian Real	BR	FGHJKMNQUVXZ	.5 point = $.00005 per Brazilian real = $5.00 per contract	US $ per Brazilian Real	100,000 Brazilian reals	0.00005=$5.00 (half tick)	$3,500	$2,500
+Canadian Dollar	CD	HMUZ	$.0001 CD ($10.00/contract)	US $ per Canadian Dollar	100,000 Canadian Dollars	.0001 ($10)	$2,160	$1,600
+US Dollar Index	DX	HMUZ	.01 of a U.S. Dollar Index point = $10.00/contract usdx	index points, expressed to three decimals	$1,000 times the U.S. Dollar Index	.01 pt($10)	$1,729	$1,300
+Euro Emini	E7	HMUZ	$.0001 Euro = ($6.25 per contract)	US $ per Euro	62,500 Euro	0.0001=$6.25	$1,620	$1,200
+Euro	EC	HMUZ	$.0001 EC ($12.50/contract)	US $ per Euro	125,000 Euro	.0001 ($12.50)	$3,240	$2,400
+Euro / Japanese Yen	EJ	HMUZ		Euro per Japanese Yen	100,000 Euro	.01 or 1,000 yen per contract		
+Euro Futures	EU	HMUZ	1/2 ticks on spread trades are permitted	US $ per Euro	200,000 A. dollars	.0001 or 20 U.S. dollars per c		
+British Pound / Euro	GB	HMUZ	1/2 ticks on spread trades are permitted	BP per Euro	100,000 Euro	.0001 or 10 pound per contract		
+Japanese Yen Emini	J7	HMUZ	$.000001 JY ($6.25/contract)	US $ per Japanese Yen	6,250,000 Japanese yen	$.000001 JY ($6.25)	$1,890	$1,400
+Japanese Yen	JY	HMUZ	$.000001 JY ($12.50/contract)	US $ per Japanese Yen	12,500,000 Japanese Yen	.000001 ($12.50)	$2,700	$2,000
+US Dollar / Swedish Krona	KU	HMUZ		US $ per Swedish Krona	200,000 U.S. dollars	.0001 or 20 krona per contract		
+New Zealand Dollar	NE	HMUZ	$.0001 ND ($10.00/contract)	US $ per NZ $	100,000 New Zealand Dollars	0.0001=$10.00	$2,295	$1,700
+Euro / Swiss Franc	RF	HMUZ		Euro per Swiss Franc	125,000 Euro			
+Euro / Swedish Krona	RK	HMUZ		Euro per Swedish Krona	100,000 Euro	.0005 or 50 krona per contract		
+Euro / Japanese Yen	RY	HMUZ		Euro per Japanese Yen	125,000 Euro			
+Euro / Swiss Franc	RZ	HMUZ		Euro per Swiss Franc	100,000 Euro	.0001 or 10 S. francs per cont		
+Swiss Franc	SF	HMUZ	$.0001 SF = ($12.50/contract)	US $ per Swiss Franc	125,000 Swiss Francs	.0001 ($12.50)	$3,240	$2,400
+US Dollar / Japanese Yen	YY	HMUZ		US $ per Japanese Yen	200,000 U.S. dollars	.01 or 2,000 yen per contract
+		
+Livestock Futures Contract Specifications
+
+Contract Name 	Symbol 	Months 	Tick Size 	Quoted Units 	Trading Unit 	Min Fluc 	Init Margin 	Maint Margin
+Feeder Cattle	FC	FHJKQUVZ	0.00025=$12.50	US $ per pound	50,000 pounds	2.5 pts ($12.50)	$1,688	$1,200
+Live Cattle	LC	GJMQVZ	1 point = .01 cents per pound = $4.00	US $ per pound	40,000 pounds	2.5 pts ($10)	$1,350	$1,000
+Lean Hogs	LH	GJKMNQVZ	2.5 C/cwt. = $10.00	US $ per pound	40,000 pounds (lean value)	2.5 pts ($10)	$1,485	$1,100
+Pork Bellies	PB	GHKNQ	2.5 C/cwt. = $10.00	US $ per pound	40,000 pounds	2.5 pts ($10)	$2,025	$1,500
+
+Food/Fiber/Softs Futures Contract Specifications
+
+Contract Name 	Symbol 	Months 	Tick Size 	Quoted Units 	Trading Unit 	Min Fluc 	Init Margin 	Maint Margin
+Cocoa	CC	HKNUZ	$1/ ton = $10	US $ per metric ton	10 metric tons	$1/ton	$1,400	$1,000
+Cotton #2	CT	HKNVZ	1/100 of a cent (one	US $ per pound	50,000 lbs	.001 ($5)	$4,900	$3,500
+BFP Milk	DA	FGHJKMNQUVXZ	$.01cwt = $20.00	US $ per hundredweight	200,000 lbs.	0.01 ($20.00)	$1,080	$800
+Butter	DB	HKNUVZ	$.00025 = $10	US $ per pound	40,000 pounds of Grade AA butter	0.00025 ($10.00)	$2,430	$1,800
+Class IV Milk	DK	FGHJKMNQUVXZ	0.01=$20.00	US $ per hundredweight	200,000 lbs.	0.01 ($20.00)	$810	$600
+Coffee	KC	HKNUZ	0.05cwt = $18.75 (point value = $3.75)	US $ per pound	37,500 lbs.	.0005 ($18.25)	$6,300	$4,500
+Lumber	LB	FHKNQX	$.10 per 1,000 bd. ft. ($11.00/contract)	US $ per 1,000 board feet	110,000 bd. feet	.10/1K ($11)	$1,650	$1,100
+Orange Juice	OJ	FHKNUX	$.0005/lb = $7.50	US $ per pound	15,000 pounds	.0005 ($7.50)	$1,960	$1,400
+Robusta Coffee (Electronic)	RN	HKNUZ	5/100 cent/lb = $18.75	US $ per pound	37,500 pounds	5/100 cent/lb = $18.75		
+Sugar #11	SB	FHKNV	$.0001/lb = $11.20	US cents per pound	112,000 lbs.	.0001 ($11.20)	$3,010	$2,150
+Sugar #14 (delisted)	SE	FHKNUX	$.01/lb = $11.20	US $ per pound	112,000 lbs.		$980	$700
+
+Financials Futures Contract Specifications
+
+Contract Name 	Symbol 	Months 	Tick Size 	Quoted Units 	Trading Unit 	Min Fluc 	Init Margin 	Maint Margin
+Cdn Bankers Accept. 3 Month	BAX	HMUZ	0.005 = C$12.50 per contract	100 - annualized yield of a Three-month Cdn BAX	C $1,000,000 nominal value of Canadian Bankers' Acceptance with a three-month maturity.	0.005 = C$12.50 per	$680	$630
+10 Yr Govt of Canada Bonds	CGB	HMUZ	0.01 = C$10	Per C$100 nominal value	C$100,000 nominal value of Government of Canada Bond with 6% notional coupon	0.01 = C$10	$1,747	$1,680
+Eurodollar	ED	FGHJKMNQUVXZ	$.01 ($25.00/contract)	basis points	1,000,000	.005 ($12.50)	$1,013	$750
+Euro Yen	EY	HMUZ	0.01 (1 basis pt.) (Y2,500)	basis points	100,000,000 Japanese Yen	.01 (Y2,500)	Y16,200	Y12,000
+Fed Funds 30 Day	FF	FGHJKMNQUVXZ	$20.835 per 1/2 of one basis point	100 - the avg daily fed funds overnight rate	5 million	.005 ($20.835)	$540	$400
+Treasury Notes 5 Year	FV	HMUZ	One half of 1/32 of a point ($15.625/contract) rounded up to the nearest
+cent/contract; par is on the basis of 100 points	Points ($1,000) and one-quarter of 1/32 of a point	One U.S. Treasury note having a face value at maturity of $100,000 or multiple thereof	1/64 ($15.625)	$1,080	$800
+Gilts Long	GS	HMUZ	0.01 = P10	index points	P 100,000 nominal value notional Gilt with 7% coupon	0.01 (P 10)	$2,351	$2,351
+5 Year Interest Rate Swap (Globex)	SA		Minimum price fluctuations shall be in multiples of one-half of one thirty-second (1/32) point per 100 points ($15.625 rounded up to the nearest cent	Points ($1,000.00) and thirty-seconds (1/32)				
+10 Year Interest Rate Swap (Globex)	SR	HMUZ	Minimum price fluctuations shall be in multiples of one-half of one thirty-second (1/32) point per 100 points ($15.625 rounded up to the nearest cent)	Points ($1,000.00) and thirty-seconds (1/32)	Notional price of the fixed-rate side of a 10-year interest rate swap that has notional principal equal to $100,000	(1/32) point	$2,025	$1,500
+Treasury Notes 2 Year	TU	HMUZ	One quarter of 1/32 of a point ($15.625/contract) rounded up to the nearest cent/contract; par is on the basis of 100 points	Points ($2,000) and one quarter of 1/32 of a point	U.S. Treasury notes having a face value at maturity of $200,000 or multiple thereof	1/128 ($15.625)	$810	$600
+Treasury Notes 10 Year	TY	HMUZ	One half of 1/32 of a point ($15.625/contract); par is on the basis of 100 points	Points ($1,000) and one-half of 1/32 of a point	One U.S. Treasury note having a face value at maturity of $100,000 or multiple thereof	1/64 ($15.625)	$1,890	$1,400
+Treasury Bonds 30 Year	US	HMUZ	1/32 of a point ($31.25/contract); par is on the basis of 100 points	Points ($1,000) and one-half of 1/32 of a point	One U.S. Treasury Bond having a face value at maturity of $100,000 or multiple thereof.	1/32 ($31.25)	$3,375	$2,500
+Euro Dollar Mini	YE	HMUZ	One-half of one basis point (or $6.25/contract)	basis points	
+			
+Index Futures Contract Specifications
+Contract Name 	Symbol 	Months 	Tick Size 	Quoted Units 	Trading Unit 	Min Fluc 	Init Margin 	Maint Margin
+Continuous CRB Index	CI	FGJMQX	.05 Points ($25.00/contract)	index points, expressed to two decimals	$500 x the CRB Index	.05 pt ($25)	$8,500	$8,500
+CRB Index Futures	CR	FGJMQX	.05 Points ($25.00/contract)	index points, expressed to two decimals	$500 x the CRB Index	.05 pt ($25)	$400	$400
+Dow Jones Industrial Average	DJ	HMUZ	1 Point ($10.00/contract)	DJIA index points	$10 x the Dow Jones Industrial Average Index	.01 pt ($10)	$7,005	$5,604
+Libor 1 Month	EM	FGHJKMNQUVXZ	1/2 point = .005 = $12.50	basis points	Eurodollar Time Deposit having a principal value of $3,000,000 with 1 month maturity.	0.005 = $12.50	$203	$150
+S&P 500 E-mini	ES	HMUZ	.01 index points = $0.50	index points, expressed to two decimals	$50 x S&P 500 Stock Index	.05 pt ($2.50)	$4,500	$3,600
+Emini S&P Midcap 400	EW	HMUZ	0.01=$5.00	index points, expressed to two decimals	$500 times the Standard & Poor's MidCap 400 Stock Price Index	0.05=$25.00	$4,000	$3,200
+Goldman Sachs Commodity Index	GI	FGHJKMNQUVXZ	$.05 =$12.50	index points, expressed to two decimals	$250 times the index	.05 indx pts = $12.5	$7,500	$5,000
+Gilts Long	GL	HMUZ	0.01 = P10	points	P100,000 nominal value notional Gilt with 7% coupon	0.01 (P10)	$2,351	$2,351
+London FT-SE 100	LZ	HMUZ	0.1 = P1.00	index points, expressed to one decimal	P10 per index point	0.5 (P5.00)	$3,000	$3,000
+S&P Midcap 400	MD	HMUZ	0.01=$5.00	index points, expressed to two decimals	$500 times the Standard & Poor's MidCap 400 Stock Price Index	0.05=$25.00	$20,000	$16,000
+NYSE Small Composite Futures	MU	HMUZ	$5 x NYSE Comp. Index	index points, expressed to one decimal		.50 (50 basis points) - e.g.,		
+Value Line Futures	MV	HMUZ	.05 pt. ($5 per/contract)	index points, expressed to two decimals	$100 x Futures Price.	.05 pt. ($5 per/ctrt	$1,000	$800
+Nasdaq 100	ND	HMUZ	0.5=$50.00	index points, expressed to two decimals	$100 times the Nasdaq 100 index	.01 per indx pt = $1	$13,750	$11,000
+Nikkei 225	NK	HMUZ	$0.05 = $25.00	index points	$5 times the Nikkei Stock Average	5 pts ($25)	$5,000	$4,000
+Nasdaq 100 E-mini	NQ	HMUZ	1pt=$0.5	index points, expressed to two decimals	$20 times the Nasdaq-100 Index	.50 pt ($10.00)	$2,750	$2,200
+S&P 500	SP	HMUZ	0.10 (10 pt.) ($2.50/pt.) ($25.00)	index points, expressed to two decimals	$250 x S&P 500 Stock Index	.10 pt ($25)	$22,500	$18,000
+S&P Canada 60 Index	SXF	HMUZ	.10 pts = C$20	index points, expressed to two decimals	C$200 times the futures value	.10 pts = C$20	$3,562	$3,360
+Dow Jones E-mini ($5) (Globex)	YM	HMUZ	One point ($5.00 per contract)	DJIA index points	($5.00) times the Dow Jones Industrial AverageSM Index.	1 pt = $5.00	$6,500	$5,200
+NYSE Revised Composite Index	YU	HMUZ	.05 = $25.00	index points, expressed to one decimal	$50 x NYSE Composite Index	.05 pt ($25)	$12,000	$12,000
+
+Oil/Energy Futures Contract Specifications
+Contract Name 	Symbol 	Months 	Tick Size 	Quoted Units 	Trading Unit 	Min Fluc 	Init Margin 	Maint Margin
+Ethanol	AK	FGHJKMNQUVXZ	One tenth of one cent ($0.001) per gallon ($29 per contract)	US $ per gallon	29,000 U.S. gallons	1/10 of 1 cent ($0.001)	$5,670	$4,200
+Brent Crude Oil	BC	FGHJKMNQUVXZ	1c/barrel = $10	US $ per barrel	1,000 net barrels (42,000 US gallons)	1 US cent per barrel	$7,288	$5,830
+Light Crude Oil (Pit)	CL	FGHJKMNQUVXZ	$0.01 (1c) per barrel ($10 per contract)	US $ per barrel	1,000 U.S. barrels (42,000 gallons)	.01/bbl. ($10	$9,788	$7,250
+Gas - Oil	GO	FGHJKMNQUVXZ	25 c/tonne = $25	US $ per tonne	100 metric tonnes of gas oil	5 US cents per tonne	$7,288	$5,830
+Nat. Gas Financial Futures (Last Day) (Globex)	HH	FGHJKMNQUVXZ	U.S. dollars and cents per mmBtu	US $ per mmBtu	10,000 million British thermal units (mmBtu).	$0.001 (0.1c) per mmBtu	$10,125	$7,500
+Heating Oil	HO	FGHJKMNQUVXZ	$0.0001 (0.01c) per gallon ($4.20 per contract)	US $ per gallon	42,000 U.S. gallons (1,000 barrels)	.0001 ($4.20)	$12,150	$9,000
+Natural Gas Financial Futures (Globex)	HP	FGHJKMNQUVXZ	U.S. dollars and cents per mmBtu	US $ per mmBtu	10,000 million British thermal units (mmBtu)	$0.001 per mmBtu. $10 contract	$10,125	$7,500
+PJM Electricity	JM	FGHJKMNQUVXZ	U.S. dollars and cents per Mwh	US $ per Mwh	40 megawatt hours	$0.05 per Mwh	$4,050	$4,050
+Natural Gas	NG	FGHJKMNQUVXZ	$0.001 (0.1 c) per MMBtu ($10 per contract)	US $ per mmBtu	10,000 million British thermal units (mmBtu)	.10 ($10)	$9,788	$7,250
+Natural Gas miNY	QG	FGHJKMNQUVXZ	U.S. cents per mmBtu	US $ per mmBtu	2,500 million British thermal units (mmBtu)	0.5c per mmBtu = $12.50	$2,447	$1,813
+Heating Oil miNY	QH	FGHJKMNQUVXZ	$0.001 (0.1c) per gallon ($21)	US $ per gallon	21,000 gallons	$0.001 (0.1c) per gallon ($21)	$6,075	$4,500
+Crude Oil EmiNY	QM	FGHJKMNQUVXZ	U.S. dollars and cents per barrel	US $ per barrel	500 barrels	(2.5c) per barrel ($12.50)	$4,894	$3,625
+NYH RBOB Gasoline miNY	QU	FGHJKMNQUVXZ		US $ per gallon	21,000 gallons	$0.001 (0.1c) per gallon ($21.	$5,063	$3,750
+NYH RBOB Unleaded Gas	RB	FGHJKMNQUVXZ	U.S. dollars and cents per gallon.	US $ per gallon	42,000 U.S. gallons (1,000 barrels)	(0.01c) per gallon ($4.20)	$10,125	$7,500
+NYH RBOB Gasoline Financial Futures (Globex)	RT	FGHJKMNQUVXZ	U.S. dollars and cents per gallon	US $ per gallon	42,000 U.S. gallons (1,000 barrels)	$0.0001 0.01c per gl	$10,125	$7,500
+Crude Oil Financial Futures (Globex)	WS	FGHJKMNQUVXZ	U.S. dollars and cents per barrels	US $ per barrel	1,000 U.S. barrels (42,000 gallons)	$0.01 per barrel	$4,050	$3,000
+
+Metals Futures Contract Specifications
+Contract Name 	Symbol 	Months 	Tick Size 	Quoted Units 	Trading Unit 	Min Fluc 	Init Margin 	Maint Margin
+Gold	GC	FGHJKMNQUVXZ	$.10/oz. = $10.00	US $ per troy ounce	100 troy ounces	10 pts=$10	$4,300	$3,250
+Copper High Grade	HG	FGHJKMNQUVXZ	0.05 c/lb. = $12.50	US $ per pound	25,000 pounds	5 pts=$12.50	$7,763	$5,750
+Palladium	PA	FGHJKMNQUVXZ	$0.05 (5 cents) per troy ounce ($5 per contract)	US $ per troy ounce	100 troy ounces	5 pts=$5	$3,713	$2,750
+Platinum	PL	FGHJKMNQUVXZ	$0.10 (10 cents) per troy ounce, $5 per contract	US $ per troy ounce	50 troy ounces	10 pts=$5	$8,100	$6,000
+Copper miNY (Globex)	QC	FGHJKMNQUVXZ		US $ per pound	12,500 pounds	$0.0020 per pound.	$3,882	$2,875
+Silver miNY (Globex)	QI	FGHJKMNQUVXZ		US $ per troy ounce	2,500 troy ounces	$0.0125 per ounce.	$3,375	$2,500
+Silver 5000 oz	SI	FGHJKMNQUVXZ	$.001/oz. = $5.00	US $ per troy ounce	5,000 troy ounces	50 pts=$25	$21,600	$16,000
+Uranium (Globex)	UX	FGHJKMNQUVXZ	U.S. dollars and cents per pound	US $ per pound	250 pounds of U308	$0.05	$2,700	$2,000

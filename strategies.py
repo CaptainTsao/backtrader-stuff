@@ -14,7 +14,7 @@ class maCross(bt.Strategy):
         margin = comminfo.margin
         mult = comminfo.params.mult
         # atr = self.strategy.atr[0]
-        max_contracts = int(self.broker.getvalue() / margin / len(self.datas) / 2)
+        max_contracts = int(self.broker.getvalue() / margin / len(self.datas) / 10)
         return max_contracts
 
     def do_sizing(self, security_name, data):
@@ -25,7 +25,7 @@ class maCross(bt.Strategy):
         pos = self.getposition(data).size
 
         strength = self.get_indicator(data, 'strength')[0]
-        max_contracts = int(self.broker.getvalue() / margin / len(self.datas) / 3 )
+        max_contracts = int(self.broker.getvalue() / margin / len(self.datas) / 10)
         max_contracts = max(max_contracts, abs(pos))
         new_pos_size = int(strength * max_contracts)
 
@@ -85,12 +85,13 @@ class maCross(bt.Strategy):
     def next(self):
         #if not (datetime.time(8, 30) < self.data.datetime.time() < datetime.time(16, 00)):
         #    return
+
         if datetime.time(0,0) == self.data.datetime.time():
             for d in self.datas:
                 pass
                 #print(d.params.name,self.getposition(d).size)
-        if not (self.data.datetime.time().hour == 15):
-            return
+        #if not (self.data.datetime.time().hour == 15):
+        #  return
         #strengths = []
         #for d in self.datas:
         #    strengths.append((self.get_indicator(d,'strength')[0],d))
@@ -100,7 +101,7 @@ class maCross(bt.Strategy):
 
             contracts = self.do_sizing(security_name,d)
 
-            #if self.get_indicator(d,'strength')[0] < .3:
+            #if self.get_indicator(d,'strength')[0] < .1:
             #    if self.getposition(d).size != 0:
             #        self.close(data=d)
             if contracts < 0:
