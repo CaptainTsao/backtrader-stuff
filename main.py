@@ -17,7 +17,7 @@ def main():
     for com in ALL_COMMISSIONS:
         cerebro.broker.setcommission(**com)
 
-    cerebro.broker.set_cash(1000000) # Set our starting cash to $1,000,000
+    cerebro.broker.set_cash(350000) # Set our starting cash to $1,000,000
     cerebro.addobserver(observers.AcctValue)
     utils.add_data(cerebro)
     #cerebro.addstrategy(strategies.maCross)

@@ -16,10 +16,10 @@ class Donchian(bt.Strategy):
         for d in self.datas:
             self.orders[d.params.name] = None
             self.indicators[d.params.name] = dict()
-            self.add_indicator(d,'dc20',indicators.DonchianChannel,period=20)
-            self.add_indicator(d,'dc10',indicators.DonchianChannel,period=3)
-            self.add_indicator(d,'atr',bt.ind.ATR,period=20)
-            self.add_indicator(d,'rsi',bt.ind.RSI,period=14)
+            self.add_indicator(d,'dc20',indicators.DonchianChannel,period=96)
+            #self.add_indicator(d,'dc10',indicators.DonchianChannel,period=3)
+            self.add_indicator(d,'atr',bt.ind.ATR,period=40)
+            #self.add_indicator(d,'rsi',bt.ind.RSI,period=14)
 
     def stop(self):
         for d in self.datas:
@@ -44,7 +44,7 @@ class Donchian(bt.Strategy):
         margin = comminfo.margin
         mult = comminfo.params.mult
         # atr = self.strategy.atr[0]
-        max_contracts = int(math.sqrt(self.broker.getvalue() / margin / len(self.datas)))*2
+        max_contracts = int(math.sqrt(self.broker.getvalue() / margin / len(self.datas)))
         if max_contracts == 0:
             max_contracts = 1
         return max_contracts
@@ -72,7 +72,8 @@ class Donchian(bt.Strategy):
                     continue
                 elif self.getposition(d).size < 0:
                     self.close(data=d)
-                self.orders[security_name] = self.buy_bracket(data=d, size=contracts, price=d.close[0],stopprice=d.close[0] - atr*4, limitprice=d.close[0] + atr*4)
+                self.orders[security_name] = self.buy_bracket(data=d, size=contracts, price=d.close[0],stopprice=d.close[0] - atr*3, limitprice=d.close[0] + atr*3)
+                #self.buy(data=d,size=contracts)
 
             elif self.get_indicator(d, 'dc20').sellsig[0]:
             #elif self.get_indicator(d,'rsi')[0] < 40:
@@ -80,8 +81,8 @@ class Donchian(bt.Strategy):
                     continue
                 elif self.getposition(d).size > 0:
                     self.close(data=d)
-                self.orders[security_name] = self.sell_bracket(data=d,size=contracts,price=d.close[0],stopprice=d.close[0] +atr*4,limitprice=d.close[0] -atr*4)
-
+                self.orders[security_name] = self.sell_bracket(data=d,size=contracts,price=d.close[0],stopprice=d.close[0] +atr*3,limitprice=d.close[0] -atr*3)
+                #self.buy(data=d,size=contracts)
 
     def notify_order(self, order):
 
