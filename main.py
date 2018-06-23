@@ -17,16 +17,17 @@ def main():
     for com in ALL_COMMISSIONS:
         cerebro.broker.setcommission(**com)
 
-    cerebro.broker.set_cash(10000000) # Set our starting cash to $1,000,000
+    cerebro.broker.set_cash(1000000) # Set our starting cash to $1,000,000
     cerebro.addobserver(observers.AcctValue)
     utils.add_data(cerebro)
-    cerebro.addstrategy(strategies.maCross)
+    #cerebro.addstrategy(strategies.maCross)
+    cerebro.addstrategy(strategies.Donchian)
     cerebro.addobserver(bt.observers.DrawDown)
     cerebro.addanalyzer(bt.analyzers.SharpeRatio)
     cerebro.addanalyzer(bt.analyzers.SQN)
     #cerebro.addanalyzer(bt.analyzers.AnnualReturn)
-    cerebro.addobserver(observers.AggregateAssets)
-    cerebro.addobserver(observers.AcctCash)
+    #cerebro.addobserver(observers.AggregateAssets)
+    #cerebro.addobserver(observers.AcctCash)
     #cerebro.addsizer(sizers.mySizer)
 
     ret = cerebro.run()
