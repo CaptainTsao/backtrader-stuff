@@ -20,7 +20,7 @@ ALL_COMMISSIONS = [
 # US  CONTINUOUS 30 YR US TREASURY BOND CONTRACT
 {'commission': 2.0, 'margin': 2365.0, 'mult': 1000.0, 'name': 'US'}, # AKA ZB
 # JY  CONTINUOUS JAPANESE YEN CONTRACT
-{'commission': 2.0, 'margin': 2200.0, 'mult': 125000.0, 'name': 'JY'}, # AKA 6J
+{'commission': 2.0, 'margin': 2200.0, 'mult': 12500000.0, 'name': 'JY'}, # AKA 6J
 # BP  CONTINUOUS BRITISH POUND CONTRACT
 {'commission': 2.0, 'margin': 1980.0, 'mult': 62500.0, 'name': 'BP'}, #AKA 6B
 # AD  CONTINUOUS AUSTRALIAN DOLLAR CONTRACT

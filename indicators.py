@@ -13,8 +13,8 @@ class hilo(bt.ind.PeriodN):
     params = (('period', 20),)
 
     def __init__(self):
-        self.lines.maxi = bt.ind.Highest(self.data.close, period=self.p.period)
-        self.lines.mini = bt.ind.Lowest(self.data.close, period=self.p.period)
+        self.lines.maxi = bt.ind.Highest(self.data.high, period=self.p.period)
+        self.lines.mini = bt.ind.Lowest(self.data.low, period=self.p.period)
 
 class DonchianChannel(bt.Indicator):
     lines = ('buysig','sellsig')
