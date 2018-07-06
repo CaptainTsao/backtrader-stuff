@@ -1,3 +1,4 @@
+import backtrader as bt
 
 ALL_COMMISSIONS = [
 
@@ -124,10 +125,50 @@ ALL_COMMISSIONS = [
 # BR  CONTINUOUS BRAZILIAN REAL CONTRACT
 
 #FOREX
-{'commission': 2.0, 'margin': 1.0, 'mult': 50.0, 'name': 'EURUSD'},
+{'commission': 0.0, 'margin': 1.0, 'mult': 50.0, 'name': 'EURUSD'},
 
 
 ]
+
+class forexSpreadCommisionScheme(bt.CommInfoBase):
+    '''
+    This commission scheme attempts to calcuate the commission hidden in the
+    spread by most forex brokers. It assumes a mid point data is being used.
+
+    *New Params*
+    spread: Float, the spread in pips of the instrument
+    JPY_pair: Bool, states whether the pair being traded is a JPY pair
+    acc_counter_currency: Bool, states whether the account currency is the same
+    as the counter currency. If false, it is assumed to be the base currency
+    '''
+    params = (
+        ('spread', 2.0),
+        ('stocklike', False),
+        ('JPY_pair', False),
+        ('acc_counter_currency', True),
+        ('commtype', bt.CommInfoBase.COMM_FIXED),
+        ('leverage',50),
+        )
+
+    def _getcommission(self, size, price, pseudoexec):
+        '''
+        This scheme will apply half the commission when buying and half when selling.
+        If JPY pair change the multiplier accordingly.
+        If account currency is same as the base currency, change pip value calc.
+        '''
+        if self.p.JPY_pair == True:
+            multiplier = 0.01
+        else:
+            multiplier = 0.0001
+
+        if self.p.acc_counter_currency == True:
+            comm = abs((self.p.spread * (size * multiplier)/2))
+
+        else:
+            comm =  abs((self.p.spread * ((size / price) * multiplier)/2))
+
+        return comm
+
 
 code_to_month_name = {
     'F':	'January',

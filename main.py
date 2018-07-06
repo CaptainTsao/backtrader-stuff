@@ -5,23 +5,34 @@ import os
 
 import observers
 import sizers
-import strategies
 import utils
+import strategies.Donchian
+import strategies.MACross
+import strategies.Turtle
+import strategies.BBands
 
 from commissions import ALL_COMMISSIONS
+import commissions
 
+GLOBAL_CONFIG = 'FUTURES'
 
 def main():
     cerebro = bt.Cerebro(stdstats=False)
 
-    #for com in ALL_COMMISSIONS:
-    #    cerebro.broker.setcommission(**com)
+    if GLOBAL_CONFIG == 'FOREX':
+        cerebro.broker.setcommission(leverage=50,stocklike=False,commtype=bt.CommInfoBase.COMM_PERC,commission=.0001)
+        # Add the new commission scheme
+        #comminfo = commissions.forexSpreadCommisionScheme(spread=1.0)
+        #cerebro.broker.addcommissioninfo(comminfo)
+    elif GLOBAL_CONFIG == 'FUTURES':
+        for com in ALL_COMMISSIONS:
+            cerebro.broker.setcommission(**com)
 
     cerebro.broker.set_cash(250000) # Set our starting cash to $1,000,000
     cerebro.addobserver(observers.AcctValue)
     utils.add_data(cerebro)
     #cerebro.addstrategy(strategies.maCross)
-    cerebro.addstrategy(strategies.WeekylHigh52)
+    cerebro.addstrategy(strategies.MACross.MACross)
     cerebro.addobserver(bt.observers.DrawDown)
     cerebro.addanalyzer(bt.analyzers.SharpeRatio)
     cerebro.addanalyzer(bt.analyzers.SQN)
