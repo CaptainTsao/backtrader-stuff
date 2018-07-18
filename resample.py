@@ -23,7 +23,3 @@ def resample_dataframe(df, period):
     ret = pd.DataFrame(ret,columns=COLUMNS)
     return ret
 
-
-df = pd.read_csv("./RACE.txt",dtype={"Date":np.str,"Time":np.str},engine='c')
-resampled = resample_dataframe(df,5)
-resampled.to_csv("RACE5min.csv", index=False,)
