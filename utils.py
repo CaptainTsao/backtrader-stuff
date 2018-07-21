@@ -144,7 +144,7 @@ ALL_DATAS = [
     #  BASE_PATH + 'kibot_data/cont_futures/15min/NN.txt',
     #  BASE_PATH + 'kibot_data/cont_futures/15min/NQ.txt',
     #  BASE_PATH + 'kibot_data/cont_futures/15min/NG.txt',
-      BASE_PATH + 'kibot_data/cont_futures/15min/CL.txt',
+    #  BASE_PATH + 'kibot_data/cont_futures/15min/CL.txt',
       #  # BASE_PATH + 'kibot_data/cont_futures/15min/HO.txt',
       # # # BASE_PATH + 'kibot_data/cont_futures/15min/RB.txt',
      #  BASE_PATH + 'kibot_data/cont_futures/15min/TY.txt',
@@ -176,12 +176,12 @@ ALL_DATAS = [
 ]
 
 STOCKS = [
-#BASE_PATH + 'kibot_data/stocks/15min/AAPL.txt',
+BASE_PATH + 'kibot_data/stocks/15min/AAPL.txt',
 #BASE_PATH + 'kibot_data/stocks/15min/GE.txt',
 #BASE_PATH + 'kibot_data/stocks/15min/DELL.txt',
 #BASE_PATH + 'kibot_data/stocks/15min/AMZN.txt',
 #BASE_PATH + 'kibot_data/stocks/15min/QCOM.txt',
-BASE_PATH + 'kibot_data/stocks/15min/MSFT.txt',
+#BASE_PATH + 'kibot_data/stocks/15min/MSFT.txt',
 #BASE_PATH + 'pitrading_data/QCOM.txt',
 ]
 
@@ -210,7 +210,7 @@ def get_quandl_data(symbol,exchange='CME',month='1'):
 
 
 def add_data(cerebro):
-    for txt in ALL_DATAS:
+    for txt in STOCKS:
 
         data = btfeed.GenericCSVData(dataname=txt,
                                      dtformat='%m/%d/%Y',

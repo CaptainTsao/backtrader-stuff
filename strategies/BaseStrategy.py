@@ -85,18 +85,21 @@ class BaseStrategy(bt.Strategy):
 
         if order.ref in self.brackets:
             #did we cancel the parent? if so we need to cancel the children
-            if order.status in [order.Canceled, order.Margin, order.Rejected, order.Completed]:
+            if order.status in [order.Canceled, order.Margin, order.Rejected,order.Expired]:
                 for o in self.brackets[order.ref]:
                     self.cancel(o)
+                del self.brackets[order.ref]
+
+
 
         for k,v in self.orders.items():
             if v is None:
                 continue
             if isinstance(v,list):
                 for o in v:
-                    if o.status not in [o.Canceled, o.Margin, o.Rejected, o.Completed, ]:
+                    if o.status not in [o.Canceled, o.Margin, o.Rejected, o.Completed, o.Expired]:
                         break
                 else:
                     self.orders[k] = None
-            elif v.status in [v.Canceled, v.Margin, v.Rejected, v.Completed, ]:
+            elif v.status in [v.Canceled, v.Margin, v.Rejected, v.Completed, v.Expired]:
                 self.orders[k] = None

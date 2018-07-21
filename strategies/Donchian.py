@@ -14,17 +14,16 @@ class Donchian(strategies.BaseStrategy.BaseStrategy):
     def __init__(self):
         super().__init__()
         for d in self.datas:
-            self.add_indicator(d,'dc20',indicators.DonchianChannel,period=36)
+            self.add_indicator(d,'dc20',indicators.DonchianChannel,period=4*3)
             #self.add_indicator(d,'atr',bt.ind.ATR,period=24)
 
     def next(self):
-        if not (datetime.time(14,00) <= self.data.datetime.time() <= datetime.time(16, 00)):
+        if not (datetime.time(11,00) <= self.data.datetime.time() <= datetime.time(16, 00)):
             return
         for i,d in enumerate(self.datas):
             security_name = d.params.name
 
             if self.orders[security_name]:
-                print("pending order")
                 continue
             date = self.data.datetime.date()
             contracts = self.do_sizing_simple(security_name,d)
@@ -36,7 +35,7 @@ class Donchian(strategies.BaseStrategy.BaseStrategy):
                 elif self.getposition(d).size < 0:
                     self.close(data=d)
                 #self.buy(data=d,size=contracts)
-                o = self.orders[security_name] = self.buy_bracket(data=d, size=contracts, price=d.open[1],stopprice=d.close[0]*.99, limitprice=d.close[0]*1.01,valid=bt.Order.DAY)
+                o = self.orders[security_name] = self.buy_bracket(data=d, size=contracts, price=d.close[0],stopprice=d.close[0]*.99, limitprice=d.close[0]*1.01,valid=bt.Order.DAY)
                 self.record_bracket(o)
             elif self.get_indicator(d, 'dc20').buysig[0]:
                 if self.getposition(d).size < 0:
@@ -44,5 +43,5 @@ class Donchian(strategies.BaseStrategy.BaseStrategy):
                 elif self.getposition(d).size > 0:
                     self.close(data=d)
                 #self.sell(data=d,size=contracts)
-                o = self.orders[security_name] = self.sell_bracket(data=d,size=contracts, price=d.open[1],stopprice=d.close[0]*1.01,limitprice=d.close[0]*.99,valid=bt.Order.DAY)
+                o = self.orders[security_name] = self.sell_bracket(data=d,size=contracts, price=d.close[0],stopprice=d.close[0]*1.01,limitprice=d.close[0]*.99,valid=bt.Order.DAY)
                 self.record_bracket(o)
