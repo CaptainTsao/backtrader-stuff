@@ -25,6 +25,7 @@ def resample_dataframe(df, period):
     ret = pd.DataFrame(ret,columns=COLUMNS)
     return ret
 
+<<<<<<< HEAD
 def resample_dataframe2(df,period):
     ret = []
     cur_line = ["01/01/0000","00:00",0.0,0.0,0.0,0.0,0]
@@ -43,3 +44,5 @@ def resample_dataframe2(df,period):
 df = pd.read_csv("/media/forrest/769A17459A170173/Users/mcdof/Documents/pitrading_data/QCOM.txt",dtype={"Date":np.str,"Time":np.str},engine='c')
 resampled = resample_dataframe2(df,5)
 #resampled.to_csv("RACE5min.csv", index=False,)
+=======
+>>>>>>> 5039bbd0b999392db6757847e367858e85176502
