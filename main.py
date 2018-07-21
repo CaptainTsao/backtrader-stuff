@@ -4,43 +4,40 @@ import backtrader.feeds as btfeed
 import os
 
 import observers
-import sizers
 import utils
 import strategies.Donchian
 import strategies.MACross
 import strategies.Turtle
 import strategies.BBands
+import strategies.SimpleMA
+import strategies.UpDownCandles
 
 from commissions import ALL_COMMISSIONS
 import commissions
+import global_config
 
-GLOBAL_CONFIG = 'FUTURES'
 
 def main():
     cerebro = bt.Cerebro(stdstats=False)
 
-    if GLOBAL_CONFIG == 'FOREX':
+    if global_config.GLOBAL_CONFIG == 'FOREX':
         cerebro.broker.setcommission(leverage=50,stocklike=False,commtype=bt.CommInfoBase.COMM_PERC,commission=.0001)
         # Add the new commission scheme
         #comminfo = commissions.forexSpreadCommisionScheme(spread=1.0)
         #cerebro.broker.addcommissioninfo(comminfo)
-    elif GLOBAL_CONFIG == 'FUTURES':
+    elif global_config.GLOBAL_CONFIG == 'FUTURES':
         for com in ALL_COMMISSIONS:
             cerebro.broker.setcommission(**com)
+    elif global_config.GLOBAL_CONFIG == 'STOCK':
+        cerebro.broker.setcommission(leverage=1,stocklike=True,commission=.00005,mult=1,margin=None)
 
-    cerebro.broker.set_cash(250000) # Set our starting cash to $1,000,000
+    cerebro.broker.set_cash(250000)
     cerebro.addobserver(observers.AcctValue)
     utils.add_data(cerebro)
-    #cerebro.addstrategy(strategies.maCross)
-    cerebro.addstrategy(strategies.MACross.MACross)
+    cerebro.addstrategy(strategies.Donchian.Donchian)
     cerebro.addobserver(bt.observers.DrawDown)
     cerebro.addanalyzer(bt.analyzers.SharpeRatio)
     cerebro.addanalyzer(bt.analyzers.SQN)
-    #cerebro.addanalyzer(bt.analyzers.Returns)
-    #cerebro.addanalyzer(bt.analyzers.AnnualReturn)
-    #cerebro.addobserver(observers.AggregateAssets)
-    #cerebro.addobserver(observers.AcctCash)
-    #cerebro.addsizer(sizers.mySizer)
 
     ret = cerebro.run()
     print(ret[0].analyzers.sharperatio.get_analysis())

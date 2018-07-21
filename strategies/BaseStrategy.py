@@ -1,23 +1,17 @@
-import datetime
 import backtrader as bt
-import backtrader.feeds as btfeed
-import os
-import math
 
-import indicators
+import global_config
 
-class Turtle(bt.Strategy):
+class BaseStrategy(bt.Strategy):
 
     def __init__(self):
 
         self.orders = dict()
         self.indicators = dict()
+        self.brackets = dict()
         for d in self.datas:
             self.orders[d.params.name] = None
             self.indicators[d.params.name] = dict()
-            self.add_indicator(d,'dc20',indicators.DonchianChannel,period=20)
-            self.add_indicator(d,'dc10',indicators.DonchianChannel,period=10)
-            self.add_indicator(d,'atr',bt.ind.ATR,period=20)
 
     def stop(self):
         for d in self.datas:
@@ -35,53 +29,20 @@ class Turtle(bt.Strategy):
         return self.indicators[data.params.name][name]
 
     def do_sizing_simple(self,security_name, data):
+        if global_config.GLOBAL_CONFIG == 'STOCK':
+            leverage = self.broker.comminfo[None].params.leverage
+            #return 100
+            stocks = int(self.broker.getvalue() / len(self.datas) / data.close[0] * .9 * leverage)
+            if stocks == 0:
+                stocks = 1
+            return stocks
         comminfo = self.broker.comminfo[security_name]
         margin = comminfo.margin
         mult = comminfo.params.mult
-        max_contracts = int((self.broker.getvalue() / margin / len(self.datas))**(1.0 / 2.9))
-        #max_contracts = int(math.sqrt(self.broker.getvalue() / margin / len(self.datas)))
+        max_contracts = int((self.broker.getvalue() / margin / len(self.datas))**(1.0 / 3.0))
         if max_contracts == 0:
             max_contracts = 1
         return max_contracts
-
-
-    def next(self):
-        for i,d in enumerate(self.datas):
-            security_name = d.params.name
-
-            if self.orders[security_name]:
-                continue
-
-            contracts = self.do_sizing_simple(security_name,d)
-            atr = self.get_indicator(d,'atr')
-
-            if self.get_indicator(d,'dc10').buysig[0]:
-                if self.getposition(d).size < 0:
-                    print('closing long')
-                    self.close(data=d)
-                    self.close_open_orders(d)
-            elif self.get_indicator(d,'dc10').sellsig[0]:
-                if self.getposition(d).size > 0:
-                    print('closing short')
-                    self.close(d)
-                    self.close_open_orders(d)
-
-
-            if self.get_indicator(d, 'dc20').buysig[0]:
-                if self.getposition(d).size > 0:
-                    continue
-                elif self.getposition(d).size < 0:
-                    self.close(data=d)
-                #self.orders[security_name] = self.buy_bracket(data=d, size=contracts, price=d.close[0],stopprice=d.close[0] * .9, limitprice=d.close[0] *1.1)
-                self.buy(data=d,size=contracts)
-
-            elif self.get_indicator(d, 'dc20').sellsig[0]:
-                if self.getposition(d).size < 0:
-                    continue
-                elif self.getposition(d).size > 0:
-                    self.close(data=d)
-                #self.orders[security_name] = self.sell_bracket(data=d,size=contracts, price=d.close[0],stopprice=d.close[0] *1.1,limitprice=d.close[0] *.9)
-                self.sell(data=d,size=contracts)
 
     def close_open_orders(self, data):
         orders = self.orders[data.params.name]
@@ -91,11 +52,13 @@ class Turtle(bt.Strategy):
             self.cancel(o)
             self.log('Order cancelled')
 
-
+    def record_bracket(self,bracket):
+        # for brackets
+        parent,stop,limit = bracket
+        self.brackets[parent.ref] = [stop,limit]
 
 
     def notify_order(self, order):
-
         if order.status in [order.Submitted, order.Accepted]:
             # Buy/Sell order submitted/accepted to/by broker - Nothing to do
             return
@@ -119,6 +82,12 @@ class Turtle(bt.Strategy):
             self.log('Order Margin')
         elif order.status in [order.Rejected]:
             self.log('Order Rejected')
+
+        if order.ref in self.brackets:
+            #did we cancel the parent? if so we need to cancel the children
+            if order.status in [order.Canceled, order.Margin, order.Rejected, order.Completed]:
+                for o in self.brackets[order.ref]:
+                    self.cancel(o)
 
         for k,v in self.orders.items():
             if v is None:

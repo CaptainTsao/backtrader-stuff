@@ -2,19 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="38a6b3b3-ad86-44d1-a5e2-ca1e040264a6" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/strategies/BBands.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/strategies/Donchian.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/strategies/MACross.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/strategies/Turtle.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/strategies/Weekly52High.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/strategies/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/backtrader-stuff.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/backtrader-stuff.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/global_config.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/strategies/BaseStrategy.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/strategies/SimpleMA.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/strategies/UpDownCandles.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commissions.py" beforeDir="false" afterPath="$PROJECT_DIR$/commissions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/evwap.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/indicators.py" beforeDir="false" afterPath="$PROJECT_DIR$/indicators.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/strategies.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/observers.py" beforeDir="false" afterPath="$PROJECT_DIR$/observers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resample.py" beforeDir="false" afterPath="$PROJECT_DIR$/resample.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sizers.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/strategies/BBands.py" beforeDir="false" afterPath="$PROJECT_DIR$/strategies/BBands.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/strategies/Donchian.py" beforeDir="false" afterPath="$PROJECT_DIR$/strategies/Donchian.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/strategies/MACross.py" beforeDir="false" afterPath="$PROJECT_DIR$/strategies/MACross.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/strategies/Turtle.py" beforeDir="false" afterPath="$PROJECT_DIR$/strategies/Turtle.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/strategies/Weekly52High.py" beforeDir="false" afterPath="$PROJECT_DIR$/strategies/Weekly52High.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -29,8 +32,8 @@
       <file leaf-file-name="BBands.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/strategies/BBands.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="936">
-              <caret line="61" column="62" selection-start-line="61" selection-start-column="62" selection-end-line="61" selection-end-column="62" />
+            <state relative-caret-position="223">
+              <caret line="15" column="68" selection-start-line="15" selection-start-column="68" selection-end-line="15" selection-end-column="68" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -38,13 +41,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MACross.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/strategies/MACross.py">
+      <file leaf-file-name="BaseStrategy.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/strategies/BaseStrategy.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-252">
-              <caret line="19" column="46" selection-start-line="19" selection-start-column="46" selection-end-line="19" selection-end-column="46" />
+            <state relative-caret-position="205">
+              <caret line="88" column="48" selection-start-line="88" selection-start-column="48" selection-end-line="88" selection-end-column="48" />
               <folding>
-                <element signature="e#0#15#0" expanded="true" />
+                <element signature="e#0#23#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -53,8 +56,8 @@
       <file leaf-file-name="Donchian.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/strategies/Donchian.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-449">
-              <caret line="18" column="76" selection-start-line="18" selection-start-column="76" selection-end-line="18" selection-end-column="76" />
+            <state relative-caret-position="421">
+              <caret line="47" column="37" selection-start-line="47" selection-start-column="37" selection-end-line="47" selection-end-column="37" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -62,11 +65,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Turtle.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/strategies/Turtle.py">
+      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1280">
-              <caret line="89" column="18" selection-start-line="89" selection-start-column="18" selection-end-line="89" selection-end-column="18" />
+            <state relative-caret-position="378">
+              <caret line="36" column="52" selection-start-line="36" selection-start-column="52" selection-end-line="36" selection-end-column="52" />
+              <folding>
+                <element signature="e#0#15#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="indicators.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/indicators.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="162">
+              <caret line="16" column="19" selection-start-line="16" selection-start-column="19" selection-end-line="16" selection-end-column="19" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -77,62 +92,11 @@
       <file leaf-file-name="utils.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="412">
-              <caret line="150" column="46" selection-start-line="150" selection-start-column="46" selection-end-line="150" selection-end-column="46" />
+            <state relative-caret-position="187">
+              <caret line="146" column="4" selection-start-line="146" selection-start-column="4" selection-end-line="146" selection-end-column="4" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Weekly52High.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/strategies/Weekly52High.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="504">
-              <caret line="34" column="50" selection-start-line="34" selection-start-column="50" selection-end-line="34" selection-end-column="50" />
-              <folding>
-                <element signature="e#0#15#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="sizers.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sizers.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="21" selection-start-line="21" selection-end-line="21" />
-              <folding>
-                <element signature="e#0#15#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="gen_carry_data.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/gen_carry_data.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="25" column="44" selection-start-line="25" selection-start-column="44" selection-end-line="25" selection-end-column="44" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="commissions.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/commissions.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="13" column="16" selection-start-line="13" selection-start-column="16" selection-end-line="13" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -192,7 +156,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/resample.py" />
         <option value="$PROJECT_DIR$/TU.txt" />
         <option value="$PROJECT_DIR$/mcCrossBracket.py" />
         <option value="$PROJECT_DIR$/comissions.py" />
@@ -205,19 +168,25 @@
         <option value="$PROJECT_DIR$/gen_carry_data.py" />
         <option value="C:/Anaconda3/Lib/site-packages/backtrader/strategy.py" />
         <option value="$PROJECT_DIR$/strip_extended_hours.py" />
-        <option value="$PROJECT_DIR$/observers.py" />
         <option value="$PROJECT_DIR$/analyzers.py" />
-        <option value="$PROJECT_DIR$/indicators.py" />
-        <option value="$PROJECT_DIR$/strategies/Weekly52High.py" />
         <option value="$PROJECT_DIR$/strategies.py" />
         <option value="$PROJECT_DIR$/__init__.py" />
-        <option value="$PROJECT_DIR$/utils.py" />
         <option value="$PROJECT_DIR$/commissions.py" />
-        <option value="$PROJECT_DIR$/strategies/BBands.py" />
-        <option value="$PROJECT_DIR$/strategies/Donchian.py" />
-        <option value="$PROJECT_DIR$/strategies/Turtle.py" />
-        <option value="$PROJECT_DIR$/main.py" />
+        <option value="$PROJECT_DIR$/strategies/__init__.py" />
         <option value="$PROJECT_DIR$/strategies/MACross.py" />
+        <option value="$PROJECT_DIR$/strategies/Turtle.py" />
+        <option value="$PROJECT_DIR$/strategies/Weekly52High.py" />
+        <option value="$PROJECT_DIR$/strategies/SimpleMA.py" />
+        <option value="$PROJECT_DIR$/observers.py" />
+        <option value="$PROJECT_DIR$/resample.py" />
+        <option value="$PROJECT_DIR$/indicators.py" />
+        <option value="$PROJECT_DIR$/strategies/UpDownCandles.py" />
+        <option value="$PROJECT_DIR$/strategies/BBands.py" />
+        <option value="$PROJECT_DIR$/main.py" />
+        <option value="$PROJECT_DIR$/global_config.py" />
+        <option value="$PROJECT_DIR$/utils.py" />
+        <option value="$PROJECT_DIR$/strategies/Donchian.py" />
+        <option value="$PROJECT_DIR$/strategies/BaseStrategy.py" />
       </list>
     </option>
   </component>
@@ -234,6 +203,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -250,7 +220,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -280,24 +249,6 @@
     </option>
   </component>
   <component name="RunManager" selected="Python.main">
-    <configuration name="download_quandl" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="backtrader-stuff" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/download_quandl.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
     <configuration name="gen_carry_data" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="backtrader-stuff" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -329,6 +280,24 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <configuration name="resample" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="backtrader-stuff" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/resample.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -372,18 +341,18 @@
     </configuration>
     <list>
       <item itemvalue="Python.main" />
-      <item itemvalue="Python.download_quandl" />
       <item itemvalue="Python.utils" />
       <item itemvalue="Python.gen_carry_data" />
       <item itemvalue="Python.strip_extended_hours" />
+      <item itemvalue="Python.resample" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.resample" />
         <item itemvalue="Python.strip_extended_hours" />
         <item itemvalue="Python.gen_carry_data" />
         <item itemvalue="Python.utils" />
-        <item itemvalue="Python.download_quandl" />
       </list>
     </recent_temporary>
   </component>
@@ -402,17 +371,18 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1044" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.13541667" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13541667" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="9" />
       <window_info anchor="bottom" id="Python Console" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32781458" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32781458" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39477125" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39403972" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -432,13 +402,8 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/sizers.py</url>
-          <line>46</line>
-          <option name="timeStamp" value="40" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>48</line>
+          <line>45</line>
           <option name="timeStamp" value="71" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -447,13 +412,29 @@
           <option name="timeStamp" value="87" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main.py</url>
-          <option name="timeStamp" value="91" />
+          <url>file://$PROJECT_DIR$/strategies/Turtle.py</url>
+          <line>57</line>
+          <option name="timeStamp" value="92" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/strategies/Turtle.py</url>
-          <line>58</line>
-          <option name="timeStamp" value="92" />
+          <url>file://$PROJECT_DIR$/strategies/BaseStrategy.py</url>
+          <line>37</line>
+          <option name="timeStamp" value="94" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/resample.py</url>
+          <line>40</line>
+          <option name="timeStamp" value="95" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/strategies/BaseStrategy.py</url>
+          <line>91</line>
+          <option name="timeStamp" value="105" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/strategies/Donchian.py</url>
+          <line>19</line>
+          <option name="timeStamp" value="108" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
@@ -466,19 +447,10 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="93" />
+      <option name="time" value="109" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/observers/logreturns.py" />
-    <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/observers/timereturn.py" />
-    <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/observers/trades.py" />
-    <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/observers/benchmark.py" />
-    <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/observers/broker.py" />
-    <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/analyzers/vwr.py" />
-    <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/analyzers/transactions.py" />
-    <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/analyzers/tradeanalyzer.py" />
-    <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/analyzers/sqn.py" />
     <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/lineiterator.py" />
     <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/metabase.py" />
     <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/indicator.py" />
@@ -488,39 +460,11 @@
     <entry file="file://$PROJECT_DIR$/ES1min.txt" />
     <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/lineseries.py" />
     <entry file="file://$PROJECT_DIR$/GC1min.txt" />
-    <entry file="file://$PROJECT_DIR$/download_quandl.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="8" column="29" selection-start-line="8" selection-start-column="29" selection-end-line="8" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/etf_pairs.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="468">
-          <caret line="26" column="21" selection-start-line="26" selection-start-column="21" selection-end-line="26" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ES.txt" />
     <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/strategy.py" />
     <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/cerebro.py" />
     <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/analyzer.py" />
     <entry file="file://C:/Anaconda3/Lib/site-packages/backtrader/analyzers/annualreturn.py" />
-    <entry file="file://$PROJECT_DIR$/indicators.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1260">
-          <caret line="78" column="13" selection-start-line="78" selection-start-column="13" selection-end-line="78" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/evwap.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="3" column="9" selection-start-line="3" selection-start-column="9" selection-end-line="3" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/lib/python3.6/_strptime.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="138">
@@ -528,23 +472,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/analyzers.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/strip_extended_hours.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="4" column="62" selection-start-line="4" selection-start-column="62" selection-end-line="4" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/strategies.py" />
-    <entry file="file://$PROJECT_DIR$/__init__.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/strategies/__init__.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$USER_HOME$/pypy3/lib-python/3/_strptime.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="192">
@@ -559,12 +487,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resample.py">
+    <entry file="file://$USER_HOME$/pypy3/site-packages/backtrader/brokers/bbroker.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="18" selection-start-column="18" selection-end-column="18" />
+        <state relative-caret-position="506">
+          <caret line="768" selection-start-line="768" selection-end-line="768" />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/strategies/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/contract_specs.csv">
       <provider selected="true" editor-type-id="text-editor">
@@ -573,45 +504,129 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/observers.py">
+    <entry file="file://$PROJECT_DIR$/sizers.py" />
+    <entry file="file://$PROJECT_DIR$/evwap.py" />
+    <entry file="file://$PROJECT_DIR$/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/strategies/Turtle.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="3" column="9" selection-start-line="3" selection-start-column="9" selection-end-line="3" selection-end-column="9" />
+        <state relative-caret-position="90">
+          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/pypy3/site-packages/backtrader/lineseries.py">
+    <entry file="file://$PROJECT_DIR$/strategies/Weekly52High.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="460" selection-start-line="460" selection-end-line="460" />
+        <state relative-caret-position="90">
+          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/pypy3/site-packages/backtrader/cerebro.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="1359" selection-start-line="1359" selection-end-line="1359" />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/analyzers.py">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$USER_HOME$/pypy3/site-packages/backtrader/brokers/bbroker.py">
+    <entry file="file://$PROJECT_DIR$/commissions.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="506">
-          <caret line="768" selection-start-line="768" selection-end-line="768" />
+        <state relative-caret-position="198">
+          <caret line="11" column="23" lean-forward="true" selection-start-line="11" selection-start-column="23" selection-end-line="11" selection-end-column="23" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/gen_carry_data.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
+        <state relative-caret-position="450">
           <caret line="25" column="44" selection-start-line="25" selection-start-column="44" selection-end-line="25" selection-end-column="44" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sizers.py">
+    <entry file="file://$PROJECT_DIR$/download_quandl.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="21" selection-start-line="21" selection-end-line="21" />
+        <state relative-caret-position="108">
+          <caret line="8" column="29" selection-start-line="8" selection-start-column="29" selection-end-line="8" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/etf_pairs.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="468">
+          <caret line="26" column="21" selection-start-line="26" selection-start-column="21" selection-end-line="26" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/strip_extended_hours.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="4" column="62" selection-start-line="4" selection-start-column="62" selection-end-line="4" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/strategies/SimpleMA.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="9" column="28" selection-start-line="9" selection-start-column="28" selection-end-line="9" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/pypy3/site-packages/backtrader/indicators/basicops.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="69" selection-start-line="69" selection-end-line="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/strategies/MACross.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/observers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="25" column="30" selection-start-line="25" selection-start-column="30" selection-end-line="25" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/pypy3/site-packages/backtrader/metabase.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="115" selection-start-line="115" selection-end-line="115" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/strategies/UpDownCandles.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="31" column="34" selection-start-line="31" selection-start-column="34" selection-end-line="31" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resample.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="511">
+          <caret line="38" column="27" selection-start-line="38" selection-start-column="27" selection-end-line="38" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/global_config.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="24" selection-start-column="24" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/indicators.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="16" column="19" selection-start-line="16" selection-start-column="19" selection-end-line="16" selection-end-column="19" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
@@ -620,52 +635,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/utils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="412">
-          <caret line="150" column="46" selection-start-line="150" selection-start-column="46" selection-end-line="150" selection-end-column="46" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/strategies/Weekly52High.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/commissions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="13" column="16" selection-start-line="13" selection-start-column="16" selection-end-line="13" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/strategies/Donchian.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-449">
-          <caret line="18" column="76" selection-start-line="18" selection-start-column="76" selection-end-line="18" selection-end-column="76" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/strategies/Turtle.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1280">
-          <caret line="89" column="18" selection-start-line="89" selection-start-column="18" selection-end-line="89" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/strategies/BBands.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="936">
-          <caret line="61" column="62" selection-start-line="61" selection-start-column="62" selection-end-line="61" selection-end-column="62" />
+        <state relative-caret-position="187">
+          <caret line="146" column="4" selection-start-line="146" selection-start-column="4" selection-end-line="146" selection-end-column="4" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
@@ -674,20 +645,75 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="34" column="50" selection-start-line="34" selection-start-column="50" selection-end-line="34" selection-end-column="50" />
+        <state relative-caret-position="378">
+          <caret line="36" column="52" selection-start-line="36" selection-start-column="52" selection-end-line="36" selection-end-column="52" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/strategies/MACross.py">
+    <entry file="file://$USER_HOME$/pypy3/site-packages/backtrader/cerebro.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-252">
-          <caret line="19" column="46" selection-start-line="19" selection-start-column="46" selection-end-line="19" selection-end-column="46" />
+        <state relative-caret-position="288">
+          <caret line="1688" selection-start-line="1688" selection-end-line="1688" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/pypy3/site-packages/backtrader/lineseries.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="460" selection-start-line="460" selection-end-line="460" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/pypy3/site-packages/backtrader/linebuffer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="162" selection-start-line="162" selection-end-line="162" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/pypy3/site-packages/backtrader/strategy.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-324">
+          <caret line="1187" selection-start-line="1187" selection-end-line="1187" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/pypy3/site-packages/backtrader/lineiterator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="343" column="8" selection-start-line="343" selection-start-column="8" selection-end-line="343" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/strategies/BBands.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="223">
+          <caret line="15" column="68" selection-start-line="15" selection-start-column="68" selection-end-line="15" selection-end-column="68" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/strategies/Donchian.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="421">
+          <caret line="47" column="37" selection-start-line="47" selection-start-column="37" selection-end-line="47" selection-end-column="37" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/strategies/BaseStrategy.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="205">
+          <caret line="88" column="48" selection-start-line="88" selection-start-column="48" selection-end-line="88" selection-end-column="48" />
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
           </folding>
         </state>
       </provider>

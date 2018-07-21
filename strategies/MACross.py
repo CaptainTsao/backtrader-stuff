@@ -4,7 +4,6 @@ import backtrader.feeds as btfeed
 import os
 import math
 
-import evwap
 import indicators
 
 class MACross(bt.Strategy):

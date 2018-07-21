@@ -5,8 +5,9 @@ import os
 import math
 
 import indicators
+import main
 
-class Turtle(bt.Strategy):
+class SimpleMA(bt.Strategy):
 
     def __init__(self):
 
@@ -15,15 +16,16 @@ class Turtle(bt.Strategy):
         for d in self.datas:
             self.orders[d.params.name] = None
             self.indicators[d.params.name] = dict()
-            self.add_indicator(d,'dc20',indicators.DonchianChannel,period=20)
-            self.add_indicator(d,'dc10',indicators.DonchianChannel,period=10)
-            self.add_indicator(d,'atr',bt.ind.ATR,period=20)
+            ma_fast = bt.ind.EMA(d,period=20)
+            ma_slow = bt.ind.EMA(d,period=200)
+            self.add_indicator(d,'cross',bt.ind.CrossOver,ma_fast,ma_slow)
 
     def stop(self):
         for d in self.datas:
             self.close(data=d)
 
     def log(self, txt, dt=None):
+        ''' Logging function fot this strategy'''
         dt = dt or self.data.datetime.date()
         t  = self.data.datetime.time()
         print('%s %s, %s' % (dt.isoformat(), t, txt))
@@ -35,64 +37,39 @@ class Turtle(bt.Strategy):
         return self.indicators[data.params.name][name]
 
     def do_sizing_simple(self,security_name, data):
+        if main.GLOBAL_CONFIG == 'FOREX':
+            return self.broker.getvalue() / len(self.datas) *10
         comminfo = self.broker.comminfo[security_name]
         margin = comminfo.margin
         mult = comminfo.params.mult
-        max_contracts = int((self.broker.getvalue() / margin / len(self.datas))**(1.0 / 2.9))
-        #max_contracts = int(math.sqrt(self.broker.getvalue() / margin / len(self.datas)))
+        max_contracts = int((self.broker.getvalue() / margin / len(self.datas))**(1.0 / 2.0))
         if max_contracts == 0:
             max_contracts = 1
+        return 1
         return max_contracts
 
 
     def next(self):
+        #if not (datetime.time(10,00) <= self.data.datetime.time() <= datetime.time(16, 00)):
+        #    return
         for i,d in enumerate(self.datas):
             security_name = d.params.name
 
-            if self.orders[security_name]:
-                continue
-
             contracts = self.do_sizing_simple(security_name,d)
-            atr = self.get_indicator(d,'atr')
 
-            if self.get_indicator(d,'dc10').buysig[0]:
-                if self.getposition(d).size < 0:
-                    print('closing long')
-                    self.close(data=d)
-                    self.close_open_orders(d)
-            elif self.get_indicator(d,'dc10').sellsig[0]:
-                if self.getposition(d).size > 0:
-                    print('closing short')
-                    self.close(d)
-                    self.close_open_orders(d)
-
-
-            if self.get_indicator(d, 'dc20').buysig[0]:
+            if self.get_indicator(d,'cross')[0] == -1:
                 if self.getposition(d).size > 0:
                     continue
                 elif self.getposition(d).size < 0:
                     self.close(data=d)
-                #self.orders[security_name] = self.buy_bracket(data=d, size=contracts, price=d.close[0],stopprice=d.close[0] * .9, limitprice=d.close[0] *1.1)
                 self.buy(data=d,size=contracts)
 
-            elif self.get_indicator(d, 'dc20').sellsig[0]:
+            elif self.get_indicator(d,'cross')[0] == 1:
                 if self.getposition(d).size < 0:
                     continue
                 elif self.getposition(d).size > 0:
                     self.close(data=d)
-                #self.orders[security_name] = self.sell_bracket(data=d,size=contracts, price=d.close[0],stopprice=d.close[0] *1.1,limitprice=d.close[0] *.9)
                 self.sell(data=d,size=contracts)
-
-    def close_open_orders(self, data):
-        orders = self.orders[data.params.name]
-        if orders is None:
-            return
-        for o in orders:
-            self.cancel(o)
-            self.log('Order cancelled')
-
-
-
 
     def notify_order(self, order):
 

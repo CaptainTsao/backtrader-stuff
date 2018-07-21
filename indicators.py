@@ -3,10 +3,39 @@ import backtrader as bt
 import backtrader.feeds as btfeed
 import os
 import math
-import evwap
 import utils
 import commissions
 import math
+
+class PercentReturnsPeriod(bt.Indicator):
+    lines = ('returns',)
+    params = (('period',20),)
+
+    def __init__(self):
+        self.addminperiod(self.params.period + 2)
+
+    def next(self):
+        o = self.data.open[-self.params.period]
+        c = self.data.close[0]
+        returns = (c - o) / o
+        self.lines.returns[0] = returns
+
+
+class UpDownCandleStrength(bt.Indicator):
+    lines = ('strength',)
+    params = (('period',20),)
+
+    def __init__(self):
+        self.addminperiod(self.params.period + 2)
+
+    def next(self):
+        green_candles = 0
+        for i in range(0,-self.params.period,-1):
+            o = self.data.open[i]
+            c =self.data.close[i]
+            if c > o:
+                green_candles += 1
+        self.lines.strength[0] = green_candles / self.params.period
 
 class hilo(bt.ind.PeriodN):
     lines = ('maxi', 'mini',)
@@ -71,8 +100,6 @@ class PercentReturns(bt.Indicator):
         self.addminperiod(2)
 
     def next(self):
-        print('this close',self.datas[0].close[0])
-        print('prev close',self.datas[-1].close[0])
         self.lines.returns[0] = self.data[0] / self.data[-1] #- 1.0
 
 class AnnualReturns(bt.Indicator):
@@ -142,3 +169,29 @@ class TrendStrength(bt.Indicator):
                 strength -= 1/len(fasts)
 
         self.lines.strength[0] = strength
+
+class EVWAP(bt.Indicator):
+
+    lines = ('evwap',)
+    params = (('period',10),)
+
+    plotinfo = dict(subplot=False)
+    plotlines = dict(
+        evwap=dict(ls='--'),
+    )
+
+    def __init__(self):
+        self.addminperiod(self.params.period)
+        self.time_ma = bt.ind.EMA(period=self.params.period)
+
+    def next(self):
+        volume_price_sum = 0
+        volume_sum = sum(self.data.volume.get(size=self.params.period))
+        for i,(v,p) in enumerate(zip(self.data.volume.get(size=self.params.period),self.data.close.get(size=self.params.period))):
+            volume_price_sum += v * p
+        if volume_sum == 0:
+            volume_sum = 1
+        average_price = volume_price_sum / volume_sum
+        #print(average_price)
+        self.lines.evwap[0] = average_price
+        #print(volume_sum)
