@@ -2,7 +2,7 @@ import datetime
 import backtrader as bt
 import backtrader.feeds as btfeed
 import os
-
+import time
 import observers
 import utils
 import strategies.Donchian
@@ -18,6 +18,7 @@ import global_config
 
 
 def main():
+    start = time.time()
     cerebro = bt.Cerebro(stdstats=False)
 
     if global_config.GLOBAL_CONFIG == 'FOREX':
@@ -43,7 +44,11 @@ def main():
     print(ret[0].analyzers.sharperatio.get_analysis())
     print(ret[0].analyzers.sqn.get_analysis())
     strat = ret[0]
+    end = time.time()
+    print("simulation took",end-start,"seconds")
     cerebro.plot()
 
+
 if __name__ == '__main__':
+
     main()

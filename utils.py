@@ -5,6 +5,9 @@ import os
 import tarfile
 import io
 import sys
+import pandas as pd
+
+PANDAS_HEADER=['datetime','open','high','low','close','volume']
 
 if sys.platform.startswith('win'):
     BASE_PATH = 'C:/Users/mcdof/Documents/'
@@ -208,10 +211,25 @@ def get_quandl_data(symbol,exchange='CME',month='1'):
                               plot=False
                               )
 
+class MyPandasData(bt.feeds.PandasData):
+    lines=('time',)
+    params=(('time',1),)
 
 def add_data(cerebro):
     for txt in STOCKS:
+        df = pd.read_csv(txt,parse_dates={'dt': [0, 1]},engine='c')
+        #for row in df.iterrows():
 
+        #    print(row)
+        #print(df)
+
+        data = btfeed.PandasData(name = os.path.splitext(os.path.basename(txt))[0],
+                                 timeframe=bt.TimeFrame.Ticks,
+                                 fromdate=datetime.datetime(1900, 1, 1),
+                                 todate=datetime.datetime(2019, 12, 1),
+                                 dataname=df,datetime=0,open=1,high=2,low=3,close=4,volume=5,openinterest=-1)
+
+        '''
         data = btfeed.GenericCSVData(dataname=txt,
                                      dtformat='%m/%d/%Y',
                                      tmformat='%H:%M',
@@ -231,6 +249,7 @@ def add_data(cerebro):
                                      preload=True,
                                      runonce=True
                                      )
-
+        
+        '''
         #data = MyChartData(dataname=txt,name=os.path.splitext(os.path.basename(txt))[0])
         cerebro.adddata(data)

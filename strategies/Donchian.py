@@ -14,7 +14,7 @@ class Donchian(strategies.BaseStrategy.BaseStrategy):
     def __init__(self):
         super().__init__()
         for d in self.datas:
-            self.add_indicator(d,'dc20',indicators.DonchianChannel,period=4*3)
+            self.add_indicator(d,'dc20',indicators.DonchianChannel,period=48)
             #self.add_indicator(d,'atr',bt.ind.ATR,period=24)
 
     def next(self):
